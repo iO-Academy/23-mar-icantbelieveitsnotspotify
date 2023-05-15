@@ -1,6 +1,10 @@
 <?php
 
+namespace Musicplayer\Database;
+use Musicplayer\PDO;
+
 class Database
+
 {
     private const HOST = 'db';
     private const DB = 'musicplayer';
