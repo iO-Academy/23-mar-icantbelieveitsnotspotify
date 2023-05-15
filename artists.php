@@ -1,14 +1,17 @@
 <?php
 
-require_once ArtistsDao.php;
-	
-$artistsDao = new ArtistsDao();
 
-$artists = $artistsDao->fetchAll();
+require "vendor/autoload.php";
+
+use Musicplayer\test\ArtistsDAO;
+
+$artistsDAO = new ArtistsDAO;
+
+$artists = $artistsDAO->fetchAll();
 
 $artistsJson = json_encode($artists);
 
-header('Content-Type: application/json')
+header('Content-Type: application/json');
 
 echo $artistsJson;
 

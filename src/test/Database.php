@@ -1,6 +1,8 @@
 <?php
 
-namespace Musicplayer;
+namespace Musicplayer\test;
+use PDO;
+
 class Database
 {
     private const HOST = 'db';

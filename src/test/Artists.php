@@ -1,7 +1,6 @@
 <?php
 
-namespace Musicplayer;
-require "vendor/autoload.php";
+namespace Musicplayer\test;
 
 class Artists
 {
@@ -17,7 +16,7 @@ class Artists
         string $artworkURL,
         string $songName,
         float $songLength
-    ){
+    ) {
         $this->artistName = $artistName;
         $this->albumName = $albumName;
         $this->artworkURL = $artworkURL;
