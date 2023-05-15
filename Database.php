@@ -1,5 +1,6 @@
 <?php
 
+namespace Musicplayer;
 class Database
 {
     private const HOST = 'db';
