@@ -1,0 +1,14 @@
+{
+  "name": "vendor_name/23-mar-icantbelieveitsnotspotify",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "ioacademy",
+      "email": "email@example.com"
+    }
+  ],
+  "require": {
+  }
+}
