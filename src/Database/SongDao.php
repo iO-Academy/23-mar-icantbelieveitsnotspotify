@@ -48,5 +48,25 @@ class SongDao
 
         return $arr;
     }
+    public function fetchAllSongsFromAlbumIdReturnArrayOfStrings(int $albumId): array
+    {
+        $sql = 'SELECT `id`, `song_name`, `length`, `song_count`, `album_id` '
+            . 'FROM `songs`'
+            . 'WHERE `album_id` = :id; ';
+
+        $value = [':id' => $albumId];
+
+        $query = $this->db->getPdo()->prepare($sql);
+        $query->execute($value);
+        $songs = $query->fetchAll();
+        $arr = [];
+
+        foreach ($songs as $song)
+        {
+            $arr[] = $song['song_name'];
+        }
+
+        return $arr;
+    }
 
 }

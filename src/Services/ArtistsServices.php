@@ -12,10 +12,15 @@ class ArtistsServices
 {
     public function formatArtistsJSONResponse(): array
     {
+
         $artistsDao = new ArtistDao();
         $artists = $artistsDao->fetchAllArtists();
+
         foreach ($artists as $artist) {
             $thisArtist = new Artist($artist->getArtistId(), $artist->getArtistName());
+            $artistName = $thisArtist->getArtistName();
+
+//            echo $artistName;
             $albumDao = new AlbumDao();
             $albums = $albumDao->fetchAllAlbumsFromArtistId($thisArtist->getArtistId());
             foreach ($albums as $album)
@@ -25,11 +30,14 @@ class ArtistsServices
                                        $album->getArtworkUrl(),
                                        $album->getArtistId());
                 $songDao = new SongDao();
-                $songs = $songDao->fetchAllSongsFromAlbumId($thisAlbum->getAlbumId());
-                return $songs;
+                $songs = $songDao->fetchAllSongsFromAlbumIdReturnArrayOfStrings($thisAlbum->getAlbumId());
+//                $artistNameOutput[] = $artistName;
+                $albumsOutput[] = ['Album'=>$thisAlbum->getAlbumName(), 'Songs'=>$songs, 'Artwork' => $thisAlbum->getArtworkUrl()];
             }
-            return $albums;
+                $artistsOutput[] = ['Name'=>$thisArtist->getArtistName(), "Albums"=>$albumsOutput];
+//                $output = [$thisArtist->getArtistName(), $albumsOutput];
         }
-        return $artists;
+        return $artistsOutput;
     }
+
 }
