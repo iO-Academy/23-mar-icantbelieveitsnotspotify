@@ -7,6 +7,7 @@ use Musicplayer\Entities\Album;
 class AlbumDao
 {
     private Database $db;
+
     public function __construct()
     {
         $this->db = new Database();
@@ -40,13 +41,9 @@ class AlbumDao
         $albums = $query->fetchAll();
         $arr = [];
 
-        foreach ($albums as $album)
-        {
+        foreach ($albums as $album) {
             $arr[] = new Album($album['id'], $album['album_name'], $album['artwork_url'], $album['artist_id']);
         }
-
         return $arr;
-
     }
-
 }

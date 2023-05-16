@@ -58,5 +58,4 @@ class Song
     {
         return $this->albumId;
     }
-
 }

@@ -8,6 +8,7 @@ use Musicplayer\Entities\Song;
 class SongDao
 {
     private Database $db;
+
     public function __construct()
     {
         $this->db = new Database();
@@ -41,13 +42,12 @@ class SongDao
         $songs = $query->fetchAll();
         $arr = [];
 
-        foreach ($songs as $song)
-        {
+        foreach ($songs as $song) {
             $arr[] = new Song($song['id'], $song['song_name'], $song['length'], $song['song_count'], $song['album_id']);
         }
-
         return $arr;
     }
+
     public function fetchAllSongsFromAlbumIdReturnArrayOfStrings(int $albumId): array
     {
         $sql = 'SELECT `id`, `song_name`, `length`, `song_count`, `album_id` '
@@ -61,12 +61,9 @@ class SongDao
         $songs = $query->fetchAll();
         $arr = [];
 
-        foreach ($songs as $song)
-        {
+        foreach ($songs as $song) {
             $arr[] = $song['song_name'];
         }
-
         return $arr;
     }
-
 }

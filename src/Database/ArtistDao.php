@@ -7,6 +7,7 @@ use Musicplayer\Entities\Artist;
 class ArtistDao
 {
     private Database $db;
+
     public function __construct()
     {
         $this->db = new Database();
@@ -37,8 +38,7 @@ class ArtistDao
         $rows = $query->fetchAll();
 
         $artists = [];
-        foreach ($rows as $row)
-        {
+        foreach ($rows as $row) {
             $artist = new Artist($row['id'], $row['artist_name']);
             $artists[] = $artist;
         }

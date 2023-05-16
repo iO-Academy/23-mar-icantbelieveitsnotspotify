@@ -48,6 +48,4 @@ class Album
     {
         return $this->artistId;
     }
-
-
 }
