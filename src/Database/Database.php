@@ -26,8 +26,7 @@ class Database
         try {
             $this->pdo = new PDO(self::DSN, self::USER, self::PASSWORD, $options);
         } catch (\PDOException $e) {
-            echo '<p>There was an error connecting to the db</p>';
-            exit;
+            throw new \Exception( '<p>There was an error connecting to the db</p>');
         }
     }
 

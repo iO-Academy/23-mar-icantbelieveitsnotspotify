@@ -3,8 +3,6 @@
 namespace Musicplayer\Database;
 
 use Musicplayer\Entities\Artist;
-use Musicplayer\Database\Database;
-
 
 class ArtistDao
 {
@@ -44,8 +42,6 @@ class ArtistDao
             $artist = new Artist($row['id'], $row['artist_name']);
             $artists[] = $artist;
         }
-
         return $artists;
     }
-
 }
