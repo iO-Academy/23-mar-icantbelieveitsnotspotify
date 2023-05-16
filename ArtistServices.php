@@ -1,19 +1,18 @@
 <?php
 
-
 namespace Musicplayer\Database;
 
 require 'vendor/autoload.php';
 
 
-class ArtistServices
-{
-    private string $artistNameFromUrl; // = $_GET['name'];
-    private int $artistId; // = $artistDao->fetchArtistIdFromArtistName($artistNameFromUrl);
-    private array $albums; // = fetchAllAlbumsFromArtistId($artistId)
-    private int $albumId; //
-    private string $album; // = $albumDao->fetchAlbumFromAlbumId();
-    private array $songs; // = $songDao->fetchAllSongsFromAlbumId();
+//class ArtistServices
+//{
+//    private string $artistNameFromUrl; // = $_GET['name'];
+//    private int $artistId; // = $artistDao->fetchArtistIdFromArtistName($artistNameFromUrl);
+//    private array $albums; // = fetchAllAlbumsFromArtistId($artistId)
+//    private int $albumId; //
+//    private string $album; // = $albumDao->fetchAlbumFromAlbumId();
+//    private array $songs; // = $songDao->fetchAllSongsFromAlbumId();
 
     // Receive 'name' from URL ($_GET['name'])
 // Get artist Id from 'name' (error response to think about in future)
@@ -22,18 +21,18 @@ class ArtistServices
 // Use get song objects from Album ID
 // Get song info
 
-    public function jsonReturnSpecificArtist($artistNameFromUrl)
-    {
-        $artistDao = new ArtistDao();
-        $albumDao = new AlbumDao();
-
-        $artistId = $artistDao->fetchArtistIdFromArtistName($artistNameFromUrl);
-        $albums = $albumDao->fetchAllAlbumsFromArtistId($artistId['id']);
-
-
-        return 'Hello';
-    }
-}
+//    public function jsonReturnSpecificArtist($artistNameFromUrl)
+//    {
+//        $artistDao = new ArtistDao();
+//        $albumDao = new AlbumDao();
+//
+//        $artistId = $artistDao->fetchArtistIdFromArtistName($artistNameFromUrl);
+//        $albums = $albumDao->fetchAllAlbumsFromArtistId($artistId['id']);
+//
+//
+//        return 'Hello';
+//    }
+//}
 
 //    '"name": , //$artistNameFromUrl = $_GET['name'];
 //"albums": [
@@ -58,6 +57,7 @@ class ArtistServices
 //  ]
 //}
 //}'
+
 
 
 //echo '<pre>';
@@ -104,18 +104,18 @@ class ArtistServices
 //print_r($artistAlbums);
 //echo '</pre>';
 //
-//// individual song from id
+// individual song from id
 //echo '<pre>';
-//$songDao = new SongDao();
+$songDao = new SongDao();
 //$songs = $songDao->fetchSongFromSongId(8);
 //print_r($songs);
 //echo '</pre>';
-//
-//// all songs on an album
-//echo '<pre>';
-//$songTest = $songDao->fetchAllSongsFromAlbumId(5);
-//print_r($songs);
-//echo '</pre>';
+
+// all songs on an album
+echo '<pre>';
+$songTest = $songDao->fetchAllSongsFromAlbumId(5);
+print_r($songTest);
+echo '</pre>';
 
 //{
 //    "name": "Billie Eilish", //$artistNameFromUrl = $_GET['name'];
