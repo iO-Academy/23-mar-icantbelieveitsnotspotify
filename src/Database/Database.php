@@ -1,7 +1,7 @@
 <?php
 
 namespace Musicplayer\Database;
-use Musicplayer\PDO;
+use PDO;
 
 class Database
 
