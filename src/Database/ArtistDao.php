@@ -1,8 +1,8 @@
 <?php
 
-namespace Musicplayer;
+namespace Musicplayer\Database;
 
-use Musicplayer\Artist;
+use Musicplayer\Entities\Artist;
 
 class ArtistDao
 {
@@ -12,7 +12,7 @@ class ArtistDao
         $this->db = new Database();
     }
 
-    public function createArtistFromId(int $artistId)
+    public function createArtistFromArtistId(int $artistId): Artist
     {
         $sql = 'SELECT `id`, `artist_name` '
             . 'FROM `artists`'

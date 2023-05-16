@@ -1,20 +1,17 @@
 <?php
 
-namespace Musicplayer;
-
+namespace Musicplayer\Entities;
 
 
 class Artist
 {
     private int $artistId;
     private string $artistName;
-//    private array $albums;
 
     public function __construct($artistId, $artistName)
     {
         $this->artistId = $artistId;
         $this->artistName = $artistName;
-//        $this->albums = $albums;
     }
 
     /**
@@ -32,14 +29,5 @@ class Artist
     {
         return $this->artistName;
     }
-
-//    /**
-//     * @return array
-//     */
-//    public function getAlbums(): array
-//    {
-//        return $this->albums;
-//    }
-
 
 }

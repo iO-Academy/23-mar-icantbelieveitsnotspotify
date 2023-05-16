@@ -1,6 +1,6 @@
 <?php
 
-namespace Musicplayer;
+namespace Musicplayer\Entities;
 
 class Album
 {
@@ -9,7 +9,7 @@ class Album
     private string $artworkUrl;
     private string $artistId;
 
-    private function __construct($albumId, $albumName, $artworkUrl, $artistId)
+    public function __construct($albumId, $albumName, $artworkUrl, $artistId)
     {
         $this->albumId = $albumId;
         $this->albumName = $albumName;
