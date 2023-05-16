@@ -29,9 +29,9 @@ class ArtistsServices
                                        $album->getArtistId());
                 $songDao = new SongDao();
                 $songs = $songDao->fetchAllSongsFromAlbumIdReturnArrayOfStrings($thisAlbum->getAlbumId());
-                $albumsOutput[] = ['name'=>$thisAlbum->getAlbumName(), 'Songs'=>$songs, 'Artwork' => $thisAlbum->getArtworkUrl()];
+                $albumsOutput[] = ['name'=>$thisAlbum->getAlbumName(), 'songs'=>$songs, 'artwork_url' => $thisAlbum->getArtworkUrl()];
             }
-                $artistsOutput[] = ['name'=>$thisArtist->getArtistName(), "Albums"=>$albumsOutput];
+                $artistsOutput[] = ['name'=>$thisArtist->getArtistName(), "albums"=>$albumsOutput];
         }
         $output = ["artists" => $artistsOutput];
         return $output;
