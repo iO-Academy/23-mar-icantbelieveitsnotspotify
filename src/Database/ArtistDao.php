@@ -28,7 +28,6 @@ class ArtistDao
         return new Artist($artist['id'], $artist['artist_name']);
     }
 
-
     public function fetchArtistIdFromArtistName(string $artistName)
     {
         $sql = 'SELECT `id` '
@@ -47,7 +46,6 @@ class ArtistDao
         return $result;
     }
 
-
     public function fetchAllArtists(): array
     {
         $sql = 'SELECT `id`, `artist_name` '
@@ -65,4 +63,3 @@ class ArtistDao
         return $artists;
     }
 }
-
