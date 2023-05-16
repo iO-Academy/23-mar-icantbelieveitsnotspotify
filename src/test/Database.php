@@ -1,10 +1,7 @@
 <?php
 
-<<<<<<<< HEAD:src/Database/Database.php
-namespace Musicplayer\Database;
-========
 namespace Musicplayer\test;
->>>>>>>> 35fc4ab15355572795363c39b93c74dd77c61977:src/test/Database.php
+
 use PDO;
 
 class Database
@@ -42,5 +39,4 @@ class Database
     {
         return $this->pdo;
     }
-
 }

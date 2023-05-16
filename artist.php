@@ -3,7 +3,7 @@
 namespace Musicplayer;
 require "vendor/autoload.php";
 
-header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Origin: localhost:3000');
 header('Content-Type: application/json');
 
 use Musicplayer\Services\ArtistServices;
@@ -13,7 +13,7 @@ try {
     http_response_code(200);
     $fetchedData = $artistServices->formatArtistJSONResponse($_GET['name']);
     $data = json_encode($fetchedData);
-}  catch (\PDOException $exception) {
+}  catch (\PDOException $e) {
     http_response_code(500);
     $data = json_encode(["message" => "Unexpected error"]);
 } catch (\Exception $e) {
