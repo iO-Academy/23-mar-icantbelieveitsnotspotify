@@ -34,11 +34,11 @@ class Song
     }
 
     /**
-     * @return float
+     * @return string
      */
-    public function getLength(): float
+    public function getLength(): string
     {
-        return $this->length;
+        return date('i:s', (floor($this->length) * 60) + ($this->length - floor($this->length)) * 100);
     }
 
     /**

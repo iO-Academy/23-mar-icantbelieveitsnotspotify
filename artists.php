@@ -1,17 +1,31 @@
 <?php
 
-
+namespace Musicplayer;
 require "vendor/autoload.php";
 
-use Musicplayer\test\ArtistsDAO;
-
-$artistsDAO = new ArtistsDAO;
-
-$artists = $artistsDAO->fetchAll();
-
-$artistsJson = json_encode($artists);
-
+header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
-echo $artistsJson;
+//$artistsDao = new ArtistsDao();
+//
+//$artists = $artistsDao->fetchAll();
+//
+//$artistsJson = json_encode($artists);
+//
+//
+//echo $artistsJson;
 
+use Musicplayer\Database\ArtistDao;
+use Musicplayer\Services\ArtistsServices;
+
+//$artistsDao = new ArtistDao();
+//$artists = $artistsDao->fetchAllArtists();
+//
+//echo '<pre>';
+//print_r($artists);
+//echo '</pre>';
+
+$artistsServices = new ArtistsServices();
+$fetchedData = $artistsServices->formatArtistsJSONResponse();
+
+echo json_encode($fetchedData);
