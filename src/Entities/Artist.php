@@ -2,7 +2,6 @@
 
 namespace Musicplayer\Entities;
 
-
 class Artist
 {
     private int $artistId;
@@ -29,5 +28,4 @@ class Artist
     {
         return $this->artistName;
     }
-
 }

@@ -1,7 +1,10 @@
 <?php
 
+<<<<<<<< HEAD:src/Database/Database.php
 namespace Musicplayer\Database;
-
+========
+namespace Musicplayer\test;
+>>>>>>>> 35fc4ab15355572795363c39b93c74dd77c61977:src/test/Database.php
 use PDO;
 
 class Database
@@ -27,7 +30,8 @@ class Database
         try {
             $this->pdo = new PDO(self::DSN, self::USER, self::PASSWORD, $options);
         } catch (\PDOException $e) {
-            throw new \Exception('<p>There was an error connecting to the db</p>');
+            echo '<p>There was an error connecting to the db</p>';
+            exit;
         }
     }
 
@@ -38,4 +42,5 @@ class Database
     {
         return $this->pdo;
     }
+
 }
