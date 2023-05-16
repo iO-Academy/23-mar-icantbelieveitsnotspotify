@@ -18,9 +18,7 @@ class ArtistsServices
 
         foreach ($artists as $artist) {
             $thisArtist = new Artist($artist->getArtistId(), $artist->getArtistName());
-            $artistName = $thisArtist->getArtistName();
 
-//            echo $artistName;
             $albumDao = new AlbumDao();
             $albums = $albumDao->fetchAllAlbumsFromArtistId($thisArtist->getArtistId());
             foreach ($albums as $album)
@@ -31,13 +29,11 @@ class ArtistsServices
                                        $album->getArtistId());
                 $songDao = new SongDao();
                 $songs = $songDao->fetchAllSongsFromAlbumIdReturnArrayOfStrings($thisAlbum->getAlbumId());
-//                $artistNameOutput[] = $artistName;
-                $albumsOutput[] = ['Album'=>$thisAlbum->getAlbumName(), 'Songs'=>$songs, 'Artwork' => $thisAlbum->getArtworkUrl()];
+                $albumsOutput[] = ['name'=>$thisAlbum->getAlbumName(), 'Songs'=>$songs, 'Artwork' => $thisAlbum->getArtworkUrl()];
             }
-                $artistsOutput[] = ['Name'=>$thisArtist->getArtistName(), "Albums"=>$albumsOutput];
-//                $output = [$thisArtist->getArtistName(), $albumsOutput];
+                $artistsOutput[] = ['name'=>$thisArtist->getArtistName(), "Albums"=>$albumsOutput];
         }
-        return $artistsOutput;
+        $output = ["artists" => $artistsOutput];
+        return $output;
     }
-
 }

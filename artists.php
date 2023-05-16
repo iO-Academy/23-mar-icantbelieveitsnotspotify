@@ -2,7 +2,7 @@
 
 namespace Musicplayer;
 require "vendor/autoload.php";
-//header('Content-Type: application/json');
+header('Content-Type: application/json');
 
 //$artistsDao = new ArtistsDao();
 //
@@ -26,7 +26,4 @@ use Musicplayer\Services\ArtistsServices;
 $artistsServices = new ArtistsServices();
 $fetchedData = $artistsServices->formatArtistsJSONResponse();
 
-
-echo '<pre>';
-print_r($fetchedData);
-echo '</pre>';
+echo json_encode($fetchedData);
