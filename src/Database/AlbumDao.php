@@ -39,11 +39,7 @@ class AlbumDao
         $query = $this->db->getPdo()->prepare($sql);
         $query->execute($value);
         $albums = $query->fetchAll();
-        $arr = [];
 
-        foreach ($albums as $album) {
-            $arr[] = new Album($album['id'], $album['album_name'], $album['artwork_url'], $album['artist_id']);
-        }
-        return $arr;
+        return $albums;
     }
 }
