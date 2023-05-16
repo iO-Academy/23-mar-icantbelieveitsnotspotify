@@ -14,12 +14,19 @@ require "vendor/autoload.php";
 //echo $artistsJson;
 
 use Musicplayer\Database\ArtistDao;
+use Musicplayer\Services\ArtistsServices;
 
-$artistsDao = new ArtistDao();
+//$artistsDao = new ArtistDao();
+//$artists = $artistsDao->fetchAllArtists();
+//
+//echo '<pre>';
+//print_r($artists);
+//echo '</pre>';
 
-$artists = $artistsDao->fetchAllArtists();
+$artistsServices = new ArtistsServices();
+$fetchedData = $artistsServices->formatArtistsJSONResponse();
+
 
 echo '<pre>';
-print_r($artists);
+print_r($fetchedData);
 echo '</pre>';
-
