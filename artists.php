@@ -1,14 +1,21 @@
 <?php
 
-require_once ArtistsDao.php;
-	
-$artistsDao = new ArtistsDao();
+namespace Musicplayer;
+require "vendor/autoload.php";
 
-$artists = $artistsDao->fetchAll();
+use Musicplayer\Services\ArtistsServices;
 
-$artistsJson = json_encode($artists);
+header('Access-Control-Allow-Origin: http://localhost:3000');
+header('Content-Type: application/json');
 
-header('Content-Type: application/json')
+$artistsServices = new ArtistsServices();
 
-echo $artistsJson;
-
+try {
+    http_response_code(200);
+    $fetchedData = $artistsServices->formatArtistsJSONResponse();
+    echo json_encode($fetchedData);
+} catch (\Exception $exception) {
+    http_response_code(500);
+    $data = json_encode(["message" => "Unexpected error", "data" => []]);
+    echo $data;
+}
