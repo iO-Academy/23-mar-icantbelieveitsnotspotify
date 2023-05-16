@@ -30,7 +30,6 @@ class ArtistServices
             }
             $albumsOutput[] = ['name' => $album->getAlbumName(), 'songs' => $songsOutput, 'artwork_url' => $album->getArtworkUrl()];
         }
-        $artistInfoArray[] = ['name'=>$artistName, "albums"=>$albumsOutput];
-        return $artistInfoArray;
+        return ['name'=>$artistName, "albums"=>$albumsOutput];
     }
 }

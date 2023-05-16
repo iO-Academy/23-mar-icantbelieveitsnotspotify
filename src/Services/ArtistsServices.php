@@ -3,7 +3,6 @@
 namespace Musicplayer\Services;
 
 use Musicplayer\Entities\Artist;
-use Musicplayer\Entities\Album;
 use Musicplayer\Database\ArtistDao;
 use Musicplayer\Database\AlbumDao;
 use Musicplayer\Database\SongDao;
@@ -12,28 +11,33 @@ class ArtistsServices
 {
     public function formatArtistsJSONResponse(): array
     {
-
-        $artistsDao = new ArtistDao();
-        $artists = $artistsDao->fetchAllArtists();
-
+        $ArtistDao = new ArtistDao();
+        $artists = $ArtistDao->fetchAllArtists();
+        $artistsOutput = [];
         foreach ($artists as $artist) {
-            $thisArtist = new Artist($artist->getArtistId(), $artist->getArtistName());
-
-            $albumDao = new AlbumDao();
-            $albums = $albumDao->fetchAllAlbumsFromArtistId($thisArtist->getArtistId());
-            foreach ($albums as $album)
-            {
-                $thisAlbum = new Album($album->getAlbumId(),
-                                       $album->getAlbumName(),
-                                       $album->getArtworkUrl(),
-                                       $album->getArtistId());
-                $songDao = new SongDao();
-                $songs = $songDao->fetchAllSongsFromAlbumIdReturnArrayOfStrings($thisAlbum->getAlbumId());
-                $albumsOutput[] = ['name'=>$thisAlbum->getAlbumName(), 'songs'=>$songs, 'artwork_url' => $thisAlbum->getArtworkUrl()];
-            }
-                $artistsOutput[] = ['name'=>$thisArtist->getArtistName(), "albums"=>$albumsOutput];
+            $albumData = $this->getAlbumData($artist);
+            $artistsOutput[] = [
+                'name' => $artist->getArtistName(),
+                'albums' => $albumData
+            ];
         }
-        $output = ["artists" => $artistsOutput];
-        return $output;
+        return ['artists' => $artistsOutput];
+    }
+
+    private function getAlbumData(Artist $artist): array
+    {
+        $albumDao = new AlbumDao();
+        $albums = $albumDao->fetchAllAlbumsFromArtistId($artist->getArtistId());
+        $albumData = [];
+        foreach ($albums as $album) {
+            $songDao = new SongDao();
+            $songs = $songDao->fetchAllSongsFromAlbumIdReturnArrayOfStrings($album->getAlbumId());
+            $albumData[] = [
+                'name' => $album->getAlbumName(),
+                'songs' => $songs,
+                'artwork_url' => $album->getArtworkUrl()
+            ];
+        }
+        return $albumData;
     }
 }

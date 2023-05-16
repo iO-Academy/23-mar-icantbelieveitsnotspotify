@@ -38,7 +38,7 @@ class Song
      */
     public function getLength(): string
     {
-        return date('i:s', (floor($this->length) * 60) + ($this->length - floor($this->length)) * 100);
+        return date('i:s', round((floor($this->length) * 60) + ($this->length - floor($this->length)) * 100));
     }
 
     /**
@@ -56,5 +56,4 @@ class Song
     {
         return $this->albumId;
     }
-
 }

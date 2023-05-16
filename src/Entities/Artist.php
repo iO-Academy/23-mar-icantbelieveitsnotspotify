@@ -1,8 +1,6 @@
 <?php
 
 namespace Musicplayer\Entities;
-use Musicplayer\Database\ArtistDao;
-
 
 class Artist
 {
@@ -30,5 +28,4 @@ class Artist
     {
         return $this->artistName;
     }
-
 }
