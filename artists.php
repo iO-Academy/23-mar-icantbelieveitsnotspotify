@@ -2,6 +2,8 @@
 
 namespace Musicplayer;
 require "vendor/autoload.php";
+
+header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
 //$artistsDao = new ArtistsDao();

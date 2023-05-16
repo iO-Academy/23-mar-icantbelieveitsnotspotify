@@ -21,6 +21,7 @@ class ArtistsServices
 
             $albumDao = new AlbumDao();
             $albums = $albumDao->fetchAllAlbumsFromArtistId($thisArtist->getArtistId());
+                $albumsOutput = [];
             foreach ($albums as $album)
             {
                 $thisAlbum = new Album($album->getAlbumId(),
