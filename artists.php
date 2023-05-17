@@ -2,7 +2,6 @@
 
 require "vendor/autoload.php";
 
-
 use Musicplayer\Services\ArtistsServices;
 
 header('Access-Control-Allow-Origin: http://localhost:3000');

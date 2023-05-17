@@ -1,14 +1,14 @@
 <?php
 
-namespace Musicplayer;
 require "vendor/autoload.php";
+
+use Musicplayer\Services\ArtistServices;
 
 header('Access-Control-Allow-Origin: http://localhost:3000');
 header('Content-Type: application/json');
 
-use Musicplayer\Services\ArtistServices;
-
 $artistServices = new ArtistServices();
+
 try {
     http_response_code(200);
     $fetchedData = $artistServices->formatArtistJSONResponse($_GET['name']);
