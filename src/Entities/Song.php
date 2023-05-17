@@ -14,7 +14,7 @@ class Song
 
 
 
-    public function __construct($songId, $songName, $length, $playCount, $albumId, $lastPlayTimestamp = null)
+    public function __construct($songId, $songName, $length, $playCount, $albumId, $lastPlayTimestamp = '')
     {
         $this->songId = $songId;
         $this->songName = $songName;

@@ -16,7 +16,7 @@ class SongDao
 
     public function fetchSongFromSongId(int $songId): Song
     {
-        $sql = 'SELECT `id`, `song_name`, `length`, `album_id`, `play_count` ' // TODO: Add timestamp
+        $sql = 'SELECT `id`, `song_name`, `length`, `album_id`, `play_count` '
             . 'FROM `songs`'
             . 'WHERE `id` = :id; ';
 
@@ -26,12 +26,12 @@ class SongDao
         $query->execute($value);
         $song = $query->fetch();
 
-        return new Song($song['id'], $song['song_name'], $song['length'], $song['album_id'], $song['song_count']); // TODO: Add timestamp
+        return new Song($song['id'], $song['song_name'], $song['length'], $song['album_id'], $song['play_count']);
     }
 
     public function fetchAllSongsFromAlbumId(int $albumId): array
     {
-        $sql = 'SELECT `id`, `song_name`, `length`, `play_count`, `album_id` ' // TODO: Add timestamp
+        $sql = 'SELECT `id`, `song_name`, `length`, `play_count`, `album_id` '
             . 'FROM `songs`'
             . 'WHERE `album_id` = :id; ';
 
@@ -45,7 +45,7 @@ class SongDao
 
     public function fetchSongFromNameAndArtist(string $name , string $artist): Song
     {
-        $sql = 'SELECT `songs`.`id`, `song_name`, `length`, `play_count`, `album_id` ' // TODO: Add timestamp
+        $sql = 'SELECT `songs`.`id`, `song_name`, `length`, `play_count`, `album_id` '
             . 'FROM `songs`'
             . 'INNER JOIN `albums`'
             . 'ON `songs`.`album_id` = `albums`.`id` '
@@ -64,7 +64,7 @@ class SongDao
             throw new \Exception('Unknown song');
         }
 
-        return new Song($song['id'], $song['song_name'], $song['length'], $song['play_count'], $song['album_id']); // TODO: Add timestamp
+        return new Song($song['id'], $song['song_name'], $song['length'], $song['play_count'], $song['album_id']);
     }
 
     public function incrementSongPlayedCount(int $id): bool
@@ -80,7 +80,7 @@ class SongDao
         return $success;
     }
 
-    public function fetchAllSongsFromAlbumIdReturnArrayOfStrings(int $albumId): array // TODO: Add timestamp
+    public function fetchAllSongsFromAlbumIdReturnArrayOfStrings(int $albumId): array
     {
         $sql = 'SELECT `id`, `song_name`, `length`, `play_count`, `album_id` '
             . 'FROM `songs`'
@@ -105,6 +105,21 @@ class SongDao
 
         $success = $stmt->execute($value);
         return $success;
+    }
+
+    public function getRecentPlayedSongArray(): array
+    {
+        $sql = 'SELECT `id`, `song_name`, `length`, `play_count`, `album_id`, `last_play_timestamp` '
+            . 'FROM `songs` '
+            . 'WHERE `last_play_timestamp` IS NOT NULL '
+            . 'ORDER BY `last_play_timestamp` DESC '
+            . 'LIMIT 5 ;';
+
+        $query = $this->db->getPdo()->prepare($sql);
+        $query->execute();
+        $recentSongs = $query->fetchAll();
+
+        return $recentSongs;
     }
 }
 
