@@ -93,5 +93,18 @@ class SongDao
         $success = $stmt->execute($value);
         return $success;
     }
+
+    public function addRecentlyPlayedTimestamp(int $id): bool
+    {
+        $sql = 'UPDATE `songs` '
+            .'SET `song_count` = `song_count` + 1 '
+            .'WHERE `id` = :id;';
+        $value = [':id' => $id];
+
+        $stmt = $this->db->getPdo()->prepare($sql);
+
+        $success = $stmt->execute($value);
+        return $success;
+    }
 }
 

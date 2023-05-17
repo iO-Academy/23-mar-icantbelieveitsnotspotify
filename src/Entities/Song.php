@@ -9,6 +9,7 @@ class Song
     private float $length;
     private int $albumId;
 
+
     public function __construct($songId, $songName, $length, $albumId)
     {
         $this->songId = $songId;
