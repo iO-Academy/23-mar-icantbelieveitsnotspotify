@@ -74,7 +74,6 @@ class SongServicesTest extends TestCase
         $songServices = new SongServices();
         $result = $songServices->convertArrayOfArraysToArrayOfSongStrings($input);
         $this->assertEquals($expected, $result);
-
     }
 
     public function testConvertArrayOfArraysToArrayOfSongsStringsChecksIfArrayIsNotEmpty()

@@ -45,6 +45,4 @@ class ArtistServices
         }
         return ['name'=>$artistName, "albums"=>$albumsOutput];
     }
-
-
 }

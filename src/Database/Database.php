@@ -5,7 +5,6 @@ namespace Musicplayer\Database;
 use PDO;
 
 class Database
-
 {
     private const HOST = 'db';
     private const DB = 'musicplayer';
