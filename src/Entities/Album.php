@@ -7,7 +7,7 @@ class Album
     private int $albumId;
     private string $albumName;
     private string $artworkUrl;
-    private string $artistId;
+    private int $artistId;
 
     public function __construct($albumId, $albumName, $artworkUrl, $artistId)
     {
@@ -42,9 +42,9 @@ class Album
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getArtistId(): string
+    public function getArtistId(): int
     {
         return $this->artistId;
     }

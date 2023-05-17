@@ -28,6 +28,24 @@ class ArtistDao
         return new Artist($artist['id'], $artist['artist_name']);
     }
 
+    public function fetchArtistIdFromArtistName(string $artistName)
+    {
+        $sql = 'SELECT `id` '
+            . 'FROM `artists`'
+            . 'WHERE `artist_name` = :id; ';
+
+        $value = [':id' => $artistName];
+
+        $query = $this->db->getPdo()->prepare($sql);
+        $query->execute($value);
+        $result = $query->fetch();
+
+        if (!$result) {
+            throw new \Exception();
+        }
+        return $result;
+    }
+
     public function fetchAllArtists(): array
     {
         $sql = 'SELECT `id`, `artist_name` '
