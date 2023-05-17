@@ -9,22 +9,35 @@ use Musicplayer\Database\SongDao;
 
 class ArtistServices
 {
+    public function convertArrayOfArraysToArrayOfArtists(array $rows): array
+    {
+        $artists = [];
+        foreach ($rows as $row) {
+            $artist = new Artist($row['id'], $row['artist_name']);
+            $artists[] = $artist;
+        }
+        return $artists;
+    }
 
     public function formatArtistJSONResponse($artistName): array
     {
-
         $artistDao = new ArtistDao();
         $albumDao = new AlbumDao();
+        $albumServices = new AlbumServices();
         $songDao = new SongDao();
+        $songServices = new SongServices();
 
         // Get artist Id from 'name' (error response to think about in future)
         $artistId = $artistDao->fetchArtistIdFromArtistName($artistName);
 
 
 
-        $albums = $albumDao->fetchAllAlbumsFromArtistId($artistId['id']);
+        $albumArray = $albumDao->fetchAllAlbumsFromArtistId($artistId['id']);
+        $albums = $albumServices->convertArrayOfArraysToArrayOfAlbums($albumArray);
+
         foreach ($albums as $album) {
-            $songs = $songDao->fetchAllSongsFromAlbumId($album->getAlbumId());
+            $songArray = $songDao->fetchAllSongsFromAlbumId($album->getAlbumId());
+            $songs = $songServices->convertArrayOfArraysToArrayOfSongs($songArray);
             foreach ($songs as $song) {
                 $songsOutput[] = ['name' => $song->getSongName(), 'length' => $song->getLength()];
             }
@@ -32,4 +45,6 @@ class ArtistServices
         }
         return ['name'=>$artistName, "albums"=>$albumsOutput];
     }
+
+
 }
