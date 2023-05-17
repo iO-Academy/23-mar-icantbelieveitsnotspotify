@@ -137,14 +137,14 @@ CREATE TABLE `songs` (
   `song_name` varchar(255) NOT NULL,
   `length` float(3,2) NOT NULL,
   `album_id` int(11) NOT NULL,
-  `song_count` int(11) NOT NULL DEFAULT 0,
+  `play_count` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=196 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 LOCK TABLES `songs` WRITE;
 /*!40000 ALTER TABLE `songs` DISABLE KEYS */;
 
-INSERT INTO `songs` (`id`, `song_name`, `length`, `album_id`, `song_count`)
+INSERT INTO `songs` (`id`, `song_name`, `length`, `album_id`, `play_count`)
 VALUES
 	(1,'bad guy',3.23,1,0),
 	(2,'bury a friend',3.00,1,0),

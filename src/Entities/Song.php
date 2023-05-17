@@ -8,14 +8,18 @@ class Song
     private string $songName;
     private float $length;
     private int $albumId;
+    private int $playCount;
     private string $lastPlayTimestamp;
 
 
-    public function __construct($songId, $songName, $length, $albumId, $lastPlayTimestamp = null)
+
+
+    public function __construct($songId, $songName, $length, $playCount, $albumId, $lastPlayTimestamp = null)
     {
         $this->songId = $songId;
         $this->songName = $songName;
         $this->length = $length;
+        $this->playCount= $playCount;
         $this->albumId = $albumId;
         $this->lastPlayTimestamp = $lastPlayTimestamp;
     }
@@ -47,9 +51,9 @@ class Song
     /**
      * @return int
      */
-    public function getSongCount(): int
+    public function getPlayCount(): int
     {
-        return $this->songCount;
+        return $this->playCount;
     }
 
     /**
