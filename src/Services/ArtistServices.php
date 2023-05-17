@@ -29,9 +29,7 @@ class ArtistServices
 
         // Get artist Id from 'name' (error response to think about in future)
         $artistId = $artistDao->fetchArtistIdFromArtistName($artistName);
-
-
-
+        
         $albumArray = $albumDao->fetchAllAlbumsFromArtistId($artistId['id']);
         $albums = $albumServices->convertArrayOfArraysToArrayOfAlbums($albumArray);
 
