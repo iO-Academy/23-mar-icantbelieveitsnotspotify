@@ -35,6 +35,7 @@ try {
 
         throw new Exception();
     } else {
+        http_response_code(201);
         $data = json_encode(["message" => "Successfully recorded play."], true);
     }
 } catch (Exception $exception) {

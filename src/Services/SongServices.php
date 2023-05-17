@@ -2,7 +2,6 @@
 
 namespace Musicplayer\Services;
 
-
 use Musicplayer\Database\AlbumDao;
 use Musicplayer\Database\ArtistDao;
 use Musicplayer\Database\SongDao;
@@ -39,14 +38,14 @@ class SongServices
         $recentSongOutput = [];
 
         foreach ($recentSongs as $song) {
-                $current = new Song(
-                    $song['id'],
-                    $song['song_name'],
-                    $song['length'],
-                    $song['play_count'],
-                    $song['album_id'],
-                    ($song['last_play_timestamp'] ?: '')
-                );
+            $current = new Song(
+                $song['id'],
+                $song['song_name'],
+                $song['length'],
+                $song['play_count'],
+                $song['album_id'],
+                ($song['last_play_timestamp'] ?: '')
+            );
             $album = $albumDao->fetchAlbumFromAlbumId($current->getAlbumId());
             $artist = $artistDao->createArtistFromArtistId($album->getArtistId());
 
