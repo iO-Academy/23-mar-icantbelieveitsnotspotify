@@ -5,13 +5,12 @@ namespace Musicplayer\Database;
 use PDO;
 
 class Database
-
 {
     private const HOST = 'db';
     private const DB = 'musicplayer';
     private const CHARSET = 'utf8mb4';
     private const DSN = 'mysql:host=' . self::HOST
-    . ';dbname=' . self::DB . ';charset=' . self::CHARSET;
+                        . ';dbname=' . self::DB . ';charset=' . self::CHARSET;
     private const USER = 'root';
     private const PASSWORD = 'password';
 

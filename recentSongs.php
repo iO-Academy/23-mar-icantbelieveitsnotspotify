@@ -2,18 +2,18 @@
 
 require "vendor/autoload.php";
 
-use Musicplayer\Services\ArtistServices;
+use Musicplayer\Services\SongServices;
 
 header('Access-Control-Allow-Origin: http://localhost:3000');
 header('Content-Type: application/json');
 
-$artistServices = new ArtistServices();
+$songServices = new SongServices();
 
 try {
     http_response_code(200);
-    $fetchedData = $artistServices->formatArtistJSONResponse($_GET['name']);
+    $fetchedData = $songServices->formatRecentSongsJSONResponse();
     $data = json_encode($fetchedData);
-}  catch (\PDOException $e) {
+} catch (\PDOException $e) {
     http_response_code(500);
     $data = json_encode(["message" => "Unexpected error"]);
 } catch (\Exception $e) {
