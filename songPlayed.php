@@ -3,12 +3,10 @@ require 'vendor/autoload.php';
 
 use Musicplayer\Database\SongDao;
 
-// Allow requests from any origin
 header("Access-Control-Allow-Origin: http://localhost:3000");
 
 header("Access-Control-Allow-Headers: Content-Type");
 
-// Set response content type
 header('Content-Type: application/json; charset=utf-8');
 
 $data = json_decode(file_get_contents('php://input'), true);
@@ -29,6 +27,8 @@ try {
 
 try {
     $success = $songDao->incrementSongPlayedCount($song->getSongId());
+    $song->setLastPlayTimestamp(date('Y-m-d H:i:s'));
+    $songDao->addLastPlayedTimestamp($song->getSongId(), $song->getLastPlayTimestamp());
     if (!$success) {
         throw new Exception();
     } else {

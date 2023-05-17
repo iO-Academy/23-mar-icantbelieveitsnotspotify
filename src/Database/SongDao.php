@@ -57,6 +57,7 @@ class SongDao
         return $songs;
     }
 
+
     public function fetchSongFromNameAndArtist(string $name , string $artist): Song
     {
         $sql = 'SELECT `songs`.`id`, `song_name`, `length`, `song_count`, `album_id` '
@@ -94,12 +95,12 @@ class SongDao
         return $success;
     }
 
-    public function addRecentlyPlayedTimestamp(int $id): bool
+    public function addLastPlayedTimestamp(int $id, string $timestamp): bool
     {
         $sql = 'UPDATE `songs` '
-            .'SET `song_count` = `song_count` + 1 '
+            .'SET `last_play_timestamp` = :timestamp '
             .'WHERE `id` = :id;';
-        $value = [':id' => $id];
+        $value = [':id' => $id, ':timestamp' => $timestamp];
 
         $stmt = $this->db->getPdo()->prepare($sql);
 
