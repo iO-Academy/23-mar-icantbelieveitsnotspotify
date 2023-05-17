@@ -27,9 +27,12 @@ try {
 
 try {
     $success = $songDao->incrementSongPlayedCount($song->getSongId());
+    $song->setLastPlayTimestamp(date('Y-m-d H:i:s'));
+    $songDao->addLastPlayedTimestamp($song->getSongId(), $song->getLastPlayTimestamp());
     if (!$success) {
         throw new Exception();
     } else {
+        http_response_code(201);
         $data = json_encode(["message" => "Successfully recorded play."], true);
     }
 } catch (Exception $exception) {

@@ -28,7 +28,7 @@ class ArtistDao
         return new Artist($artist['id'], $artist['artist_name']);
     }
 
-    public function fetchArtistIdFromArtistName(string $artistName)
+    public function fetchArtistIdFromArtistName(string $artistName): int
     {
         $sql = 'SELECT `id` '
             . 'FROM `artists`'

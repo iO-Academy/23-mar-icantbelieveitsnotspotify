@@ -97,4 +97,32 @@ class SongDao
 
         return $output;
     }
+
+    public function addLastPlayedTimestamp(int $id, string $timestamp): bool
+    {
+        $sql = 'UPDATE `songs` '
+            .'SET `last_play_timestamp` = :timestamp '
+            .'WHERE `id` = :id;';
+        $value = [':id' => $id, ':timestamp' => $timestamp];
+
+        $stmt = $this->db->getPdo()->prepare($sql);
+
+        $success = $stmt->execute($value);
+        return $success;
+    }
+
+    public function getRecentPlayedSongArray(): array
+    {
+        $sql = 'SELECT `id`, `song_name`, `length`, `play_count`, `album_id`, `last_play_timestamp` '
+            . 'FROM `songs` '
+            . 'WHERE `last_play_timestamp` IS NOT NULL '
+            . 'ORDER BY `last_play_timestamp` DESC '
+            . 'LIMIT 5 ;';
+
+        $query = $this->db->getPdo()->prepare($sql);
+        $query->execute();
+        $recentSongs = $query->fetchAll();
+
+        return $recentSongs;
+    }
 }
