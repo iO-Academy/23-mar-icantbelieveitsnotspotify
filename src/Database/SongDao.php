@@ -2,8 +2,8 @@
 
 namespace Musicplayer\Database;
 
-use Musicplayer\Entities\Album;
 use Musicplayer\Entities\Song;
+use Musicplayer\Services\SongServices;
 
 class SongDao
 {
@@ -26,7 +26,7 @@ class SongDao
         $query->execute($value);
         $song = $query->fetch();
 
-        return new Song($song['id'], $song['song_name'], $song['length'], $song['album_id'], $song['song_count']);
+        return new Song($song['id'], $song['song_name'], $song['length'], $song['album_id'], $song['play_count']);
     }
 
     public function fetchAllSongsFromAlbumId(int $albumId): array
@@ -42,7 +42,6 @@ class SongDao
         $songs = $query->fetchAll();
         return $songs;
     }
-
 
     public function fetchSongFromNameAndArtist(string $name , string $artist): Song
     {
@@ -94,7 +93,6 @@ class SongDao
         return $success;
     }
 
-
     public function fetchAllSongsFromAlbumIdReturnArrayOfStrings(int $albumId): array
     {
         $sql = 'SELECT `id`, `song_name`, `length`, `play_count`, `album_id` '
@@ -106,7 +104,38 @@ class SongDao
         $query = $this->db->getPdo()->prepare($sql);
         $query->execute($value);
         $songs = $query->fetchAll();
-        return $songs;
+
+        $songServices = new SongServices();
+        $output = $songServices->convertArrayOfArraysToArrayOfSongStrings($songs);
+
+        return $output;
+    }
+
+    public function addLastPlayedTimestamp(int $id, string $timestamp): bool
+    {
+        $sql = 'UPDATE `songs` '
+            .'SET `last_play_timestamp` = :timestamp '
+            .'WHERE `id` = :id;';
+        $value = [':id' => $id, ':timestamp' => $timestamp];
+
+        $stmt = $this->db->getPdo()->prepare($sql);
+
+        $success = $stmt->execute($value);
+        return $success;
+    }
+
+    public function getRecentPlayedSongArray(): array
+    {
+        $sql = 'SELECT `id`, `song_name`, `length`, `play_count`, `album_id`, `last_play_timestamp` '
+            . 'FROM `songs` '
+            . 'WHERE `last_play_timestamp` IS NOT NULL '
+            . 'ORDER BY `last_play_timestamp` DESC '
+            . 'LIMIT 5 ;';
+
+        $query = $this->db->getPdo()->prepare($sql);
+        $query->execute();
+        $recentSongs = $query->fetchAll();
+
+        return $recentSongs;
     }
 }
-

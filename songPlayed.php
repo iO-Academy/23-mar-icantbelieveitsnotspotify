@@ -26,9 +26,13 @@ try {
 }
 
 try {
+
     $songSuccess = $songDao->incrementSongPlayedCount($song->getSongId());
     $albumSuccess = $songDao->incrementAlbumPlayedCount($song->getAlbumId());
+    $song->setLastPlayTimestamp(date('Y-m-d H:i:s'));
+    $songDao->addLastPlayedTimestamp($song->getSongId(), $song->getLastPlayTimestamp());
     if (!$songSuccess || !$albumSuccess) {
+
         throw new Exception();
     } else {
         $data = json_encode(["message" => "Successfully recorded play."], true);
