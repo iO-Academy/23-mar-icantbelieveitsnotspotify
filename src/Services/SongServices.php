@@ -10,7 +10,7 @@ class SongServices
     {
         $songs = [];
         foreach ($rows as $row) {
-            $song = new Song($row['id'], $row['song_name'], $row['length'], $row['song_count'], $row['album_id']);
+            $song = new Song($row['id'], $row['song_name'], $row['length'], $row['play_count'], $row['album_id']);
             $songs[] = $song;
         }
         return $songs;
