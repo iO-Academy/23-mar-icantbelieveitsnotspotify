@@ -26,7 +26,7 @@ class SongDao
         $query->execute($value);
         $song = $query->fetch();
 
-        return new Song($song['id'], $song['song_name'], $song['length'], $song['album_id'], $song['song_count']);
+        return new Song($song['id'], $song['song_name'], $song['length'], $song['album_id'], $song['play_count']);
     }
 
     public function fetchAllSongsFromAlbumId(int $albumId): array
@@ -81,7 +81,6 @@ class SongDao
         return $success;
     }
 
-
     public function fetchAllSongsFromAlbumIdReturnArrayOfStrings(int $albumId): array
     {
         $sql = 'SELECT `id`, `song_name`, `length`, `play_count`, `album_id` '
@@ -100,4 +99,3 @@ class SongDao
         return $output;
     }
 }
-
