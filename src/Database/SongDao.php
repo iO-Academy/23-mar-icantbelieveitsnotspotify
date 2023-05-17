@@ -81,6 +81,19 @@ class SongDao
         return $success;
     }
 
+    public function incrementAlbumPlayedCount(int $id): bool
+    {
+        $sql = 'UPDATE `albums` '
+            .'SET `album_play_count` = `album_play_count` + 1 '
+            .'WHERE `id` = :id;';
+        $value = [':id' => $id];
+
+        $stmt = $this->db->getPdo()->prepare($sql);
+
+        $success = $stmt->execute($value);
+        return $success;
+    }
+
 
     public function fetchAllSongsFromAlbumIdReturnArrayOfStrings(int $albumId): array
     {
