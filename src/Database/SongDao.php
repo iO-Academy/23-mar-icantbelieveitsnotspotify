@@ -40,13 +40,7 @@ class SongDao
         $query = $this->db->getPdo()->prepare($sql);
         $query->execute($value);
         $songs = $query->fetchAll();
-        $arr = [];
-
-
-        foreach ($songs as $song) {
-            $arr[] = new Song($song['id'], $song['song_name'], $song['length'], $song['album_id']);
-        }
-        return $arr;
+        return $songs;
     }
 
     public function fetchAllSongsFromAlbumIdReturnArrayOfStrings(int $albumId): array
@@ -60,11 +54,6 @@ class SongDao
         $query = $this->db->getPdo()->prepare($sql);
         $query->execute($value);
         $songs = $query->fetchAll();
-        $arr = [];
-
-        foreach ($songs as $song) {
-            $arr[] = $song['song_name'];
-        }
-        return $arr;
+        return $songs;
     }
 }

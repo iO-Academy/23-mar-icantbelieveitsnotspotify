@@ -49,17 +49,12 @@ class ArtistDao
     public function fetchAllArtists(): array
     {
         $sql = 'SELECT `id`, `artist_name` '
-            . 'FROM `artists`';
+            . 'FROM `artists`;';
 
         $query = $this->db->getPdo()->prepare($sql);
         $query->execute();
         $rows = $query->fetchAll();
 
-        $artists = [];
-        foreach ($rows as $row) {
-            $artist = new Artist($row['id'], $row['artist_name']);
-            $artists[] = $artist;
-        }
-        return $artists;
+        return $rows;
     }
 }

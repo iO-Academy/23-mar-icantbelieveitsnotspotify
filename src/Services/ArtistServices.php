@@ -1,7 +1,6 @@
 <?php
 
 namespace Musicplayer\Services;
-
 use Musicplayer\Entities\Artist;
 use Musicplayer\Entities\Album;
 use Musicplayer\Database\ArtistDao;
@@ -10,6 +9,7 @@ use Musicplayer\Database\SongDao;
 
 class ArtistServices
 {
+
     public function formatArtistJSONResponse($artistName): array
     {
 
