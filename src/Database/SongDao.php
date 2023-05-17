@@ -8,6 +8,7 @@ use Musicplayer\Entities\Song;
 class SongDao
 {
     private Database $db;
+
     public function __construct()
     {
         $this->db = new Database();
@@ -15,7 +16,7 @@ class SongDao
 
     public function fetchSongFromSongId(int $songId): Song
     {
-        $sql = 'SELECT `id`, `song_name`, `length`, `song_count`, `album_id` '
+        $sql = 'SELECT `id`, `song_name`, `length`, `album_id` '
             . 'FROM `songs`'
             . 'WHERE `id` = :id; ';
 
@@ -25,29 +26,23 @@ class SongDao
         $query->execute($value);
         $song = $query->fetch();
 
-        return new Song($song['id'], $song['song_name'], $song['length'], $song['song_count'], $song['album_id']);
+        return new Song($song['id'], $song['song_name'], $song['length'], $song['album_id']);
     }
 
     public function fetchAllSongsFromAlbumId(int $albumId): array
     {
-        $sql = 'SELECT `id`, `song_name`, `length`, `song_count`, `album_id` '
+        $sql = 'SELECT `id`, `song_name`, `length`, `album_id` '
             . 'FROM `songs`'
-            . 'WHERE `id` = :id; ';
+            . 'WHERE `album_id` = :id; ';
 
         $value = [':id' => $albumId];
 
         $query = $this->db->getPdo()->prepare($sql);
         $query->execute($value);
         $songs = $query->fetchAll();
-        $arr = [];
-
-        foreach ($songs as $song)
-        {
-            $arr[] = new Song($song['id'], $song['song_name'], $song['length'], $song['song_count'], $song['album_id']);
-        }
-
-        return $arr;
+        return $songs;
     }
+
 
     public function fetchSongFromNameAndArtist(string $name , string $artist): Song
     {
@@ -85,4 +80,20 @@ class SongDao
         $success = $stmt->execute($value);
         return $success;
     }
+
+
+    public function fetchAllSongsFromAlbumIdReturnArrayOfStrings(int $albumId): array
+    {
+        $sql = 'SELECT `id`, `song_name`, `length`, `song_count`, `album_id` '
+            . 'FROM `songs`'
+            . 'WHERE `album_id` = :id; ';
+
+        $value = [':id' => $albumId];
+
+        $query = $this->db->getPdo()->prepare($sql);
+        $query->execute($value);
+        $songs = $query->fetchAll();
+        return $songs;
+    }
 }
+

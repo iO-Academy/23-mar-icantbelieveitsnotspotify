@@ -1,6 +1,6 @@
 <?php
 
-namespace Musicplayer\Database;
+namespace Musicplayer\test;
 
 use PDO;
 
@@ -11,7 +11,7 @@ class Database
     private const DB = 'musicplayer';
     private const CHARSET = 'utf8mb4';
     private const DSN = 'mysql:host=' . self::HOST
-                        . ';dbname=' . self::DB . ';charset=' . self::CHARSET;
+    . ';dbname=' . self::DB . ';charset=' . self::CHARSET;
     private const USER = 'root';
     private const PASSWORD = 'password';
 
@@ -27,7 +27,8 @@ class Database
         try {
             $this->pdo = new PDO(self::DSN, self::USER, self::PASSWORD, $options);
         } catch (\PDOException $e) {
-            throw new \Exception('<p>There was an error connecting to the db</p>');
+            echo '<p>There was an error connecting to the db</p>';
+            exit;
         }
     }
 
