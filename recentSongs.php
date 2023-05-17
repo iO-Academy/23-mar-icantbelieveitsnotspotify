@@ -13,11 +13,9 @@ try {
     http_response_code(200);
     $fetchedData = $songServices->formatRecentSongsJSONResponse();
     $data = json_encode($fetchedData);
-} catch (\PDOException $e) {
+} catch (\PDOException $exception) {
     http_response_code(500);
     $data = json_encode(["message" => "Unexpected error"]);
-} catch (\Exception $e) {
-    http_response_code(400);
-    $data = json_encode(["message" => "Unknown artist name"]);
 }
+
 echo $data;
