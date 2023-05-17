@@ -57,4 +57,17 @@ class AlbumDao
 
         return $albums;
     }
+
+    public function fetchTopFiveAlbums(): array
+    {
+        $sql= 'SELECT `album_name`,`artist_id`,`album_play_count` '
+           . 'FROM `albums` '
+           . 'ORDER BY `album_play_count` DESC'
+           . 'LIMIT 5';
+
+        $query = $this->db->getPdo()->prepare($sql);
+        $albums = $query->fetchAll();
+
+        return $albums;
+    }
 }
