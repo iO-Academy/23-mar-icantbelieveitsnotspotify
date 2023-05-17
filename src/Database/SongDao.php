@@ -43,7 +43,6 @@ class SongDao
         return $songs;
     }
 
-
     public function fetchSongFromNameAndArtist(string $name , string $artist): Song
     {
         $sql = 'SELECT `songs`.`id`, `song_name`, `length`, `play_count`, `album_id` '
