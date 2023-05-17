@@ -42,6 +42,8 @@ class ArtistServices
                 $songsOutput[] = ['name' => $song->getSongName(), 'length' => $song->getLength()];
             }
             $albumsOutput[] = ['name' => $album->getAlbumName(), 'songs' => $songsOutput, 'artwork_url' => $album->getArtworkUrl()];
+            $songsOutput = [];
+
         }
         return ['name'=>$artistName, "albums"=>$albumsOutput];
     }
