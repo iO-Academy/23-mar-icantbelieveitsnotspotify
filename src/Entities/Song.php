@@ -11,9 +11,6 @@ class Song
     private int $playCount;
     private string $lastPlayTimestamp;
 
-
-
-
     public function __construct($songId, $songName, $length, $playCount, $albumId, $lastPlayTimestamp = '')
     {
         $this->songId = $songId;
