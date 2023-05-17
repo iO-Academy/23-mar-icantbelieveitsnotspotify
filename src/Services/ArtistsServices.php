@@ -13,6 +13,8 @@ class ArtistsServices
     {
         $ArtistDao = new ArtistDao();
         $artists = $ArtistDao->fetchAllArtists();
+        $artistServices = new ArtistServices();
+        $artists = $artistServices->convertArrayOfArraysToArrayOfArtists($artists);
         $artistsOutput = [];
         foreach ($artists as $artist) {
             $albumData = $this->getAlbumData($artist);
@@ -28,6 +30,8 @@ class ArtistsServices
     {
         $albumDao = new AlbumDao();
         $albums = $albumDao->fetchAllAlbumsFromArtistId($artist->getArtistId());
+        $albumServices = new AlbumServices();
+        $albums = $albumServices->convertArrayOfArraysToArrayOfAlbums($albums);
         $albumData = [];
         foreach ($albums as $album) {
             $songDao = new SongDao();
