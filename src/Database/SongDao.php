@@ -2,8 +2,8 @@
 
 namespace Musicplayer\Database;
 
-use Musicplayer\Entities\Album;
 use Musicplayer\Entities\Song;
+use Musicplayer\Services\SongServices;
 
 class SongDao
 {
@@ -16,7 +16,7 @@ class SongDao
 
     public function fetchSongFromSongId(int $songId): Song
     {
-        $sql = 'SELECT `id`, `song_name`, `length`, `album_id` '
+        $sql = 'SELECT `id`, `song_name`, `length`, `album_id`, `play_count` '
             . 'FROM `songs`'
             . 'WHERE `id` = :id; ';
 
@@ -26,26 +26,12 @@ class SongDao
         $query->execute($value);
         $song = $query->fetch();
 
-        return new Song($song['id'], $song['song_name'], $song['length'], $song['album_id']);
+        return new Song($song['id'], $song['song_name'], $song['length'], $song['album_id'], $song['play_count']);
     }
 
     public function fetchAllSongsFromAlbumId(int $albumId): array
     {
-        $sql = 'SELECT `id`, `song_name`, `length`, `song_count`, `album_id` '
-            . 'FROM `songs`'
-            . 'WHERE `album_id` = :id; ';
-
-        $value = [':id' => $albumId];
-
-        $query = $this->db->getPdo()->prepare($sql);
-        $query->execute($value);
-        $songs = $query->fetchAll();
-        return $songs;
-    }
-
-    public function fetchAllSongsFromAlbumIdReturnArrayOfStrings(int $albumId): array
-    {
-        $sql = 'SELECT `id`, `song_name`, `length`, `song_count`, `album_id` '
+        $sql = 'SELECT `id`, `song_name`, `length`, `play_count`, `album_id` '
             . 'FROM `songs`'
             . 'WHERE `album_id` = :id; ';
 
@@ -59,7 +45,7 @@ class SongDao
 
     public function fetchSongFromNameAndArtist(string $name , string $artist): Song
     {
-        $sql = 'SELECT `songs`.`id`, `song_name`, `length`, `song_count`, `album_id` '
+        $sql = 'SELECT `songs`.`id`, `song_name`, `length`, `play_count`, `album_id` '
             . 'FROM `songs`'
             . 'INNER JOIN `albums`'
             . 'ON `songs`.`album_id` = `albums`.`id` '
@@ -78,13 +64,13 @@ class SongDao
             throw new \Exception('Unknown song');
         }
 
-        return new Song($song['id'], $song['song_name'], $song['length'], $song['song_count'], $song['album_id']);
+        return new Song($song['id'], $song['song_name'], $song['length'], $song['play_count'], $song['album_id']);
     }
 
     public function incrementSongPlayedCount(int $id): bool
     {
         $sql = 'UPDATE `songs` '
-            .'SET `song_count` = `song_count` + 1 '
+            .'SET `play_count` = `play_count` + 1 '
             .'WHERE `id` = :id;';
         $value = [':id' => $id];
 
@@ -93,5 +79,50 @@ class SongDao
         $success = $stmt->execute($value);
         return $success;
     }
-}
 
+    public function fetchAllSongsFromAlbumIdReturnArrayOfStrings(int $albumId): array
+    {
+        $sql = 'SELECT `id`, `song_name`, `length`, `play_count`, `album_id` '
+            . 'FROM `songs`'
+            . 'WHERE `album_id` = :id; ';
+
+        $value = [':id' => $albumId];
+
+        $query = $this->db->getPdo()->prepare($sql);
+        $query->execute($value);
+        $songs = $query->fetchAll();
+
+        $songServices = new SongServices();
+        $output = $songServices->convertArrayOfArraysToArrayOfSongStrings($songs);
+
+        return $output;
+    }
+
+    public function addLastPlayedTimestamp(int $id, string $timestamp): bool
+    {
+        $sql = 'UPDATE `songs` '
+            .'SET `last_play_timestamp` = :timestamp '
+            .'WHERE `id` = :id;';
+        $value = [':id' => $id, ':timestamp' => $timestamp];
+
+        $stmt = $this->db->getPdo()->prepare($sql);
+
+        $success = $stmt->execute($value);
+        return $success;
+    }
+
+    public function getRecentPlayedSongArray(): array
+    {
+        $sql = 'SELECT `id`, `song_name`, `length`, `play_count`, `album_id`, `last_play_timestamp` '
+            . 'FROM `songs` '
+            . 'WHERE `last_play_timestamp` IS NOT NULL '
+            . 'ORDER BY `last_play_timestamp` DESC '
+            . 'LIMIT 5 ;';
+
+        $query = $this->db->getPdo()->prepare($sql);
+        $query->execute();
+        $recentSongs = $query->fetchAll();
+
+        return $recentSongs;
+    }
+}

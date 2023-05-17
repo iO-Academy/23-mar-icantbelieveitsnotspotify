@@ -37,7 +37,7 @@ class ArtistServices
             $songArray = $songDao->fetchAllSongsFromAlbumId($album->getAlbumId());
             $songs = $songServices->convertArrayOfArraysToArrayOfSongs($songArray);
             foreach ($songs as $song) {
-                $songsOutput[] = ['name' => $song->getSongName(), 'length' => $song->getLength()];
+                $songsOutput[] = ['name' => $song->getSongName(), 'length' => $song->getLength(), 'play_count' => $song->getPlayCount()];
             }
             $albumsOutput[] = ['name' => $album->getAlbumName(), 'songs' => $songsOutput, 'artwork_url' => $album->getArtworkUrl()];
             $songsOutput = [];
@@ -45,6 +45,4 @@ class ArtistServices
         }
         return ['name'=>$artistName, "albums"=>$albumsOutput];
     }
-
-
 }
