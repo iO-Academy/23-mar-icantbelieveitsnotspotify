@@ -31,7 +31,7 @@ class SongDao
 
     public function fetchAllSongsFromAlbumId(int $albumId): array
     {
-        $sql = 'SELECT `id`, `song_name`, `length`, `song_count`, `album_id` '
+        $sql = 'SELECT `id`, `song_name`, `length`, `play_count`, `album_id` '
             . 'FROM `songs`'
             . 'WHERE `album_id` = :id; ';
 
@@ -45,7 +45,7 @@ class SongDao
 
     public function fetchAllSongsFromAlbumIdReturnArrayOfStrings(int $albumId): array
     {
-        $sql = 'SELECT `id`, `song_name`, `length`, `song_count`, `album_id` '
+        $sql = 'SELECT `id`, `song_name`, `length`, `play_count`, `album_id` '
             . 'FROM `songs`'
             . 'WHERE `album_id` = :id; ';
 

@@ -44,14 +44,6 @@ class Song
     /**
      * @return int
      */
-    public function getSongCount(): int
-    {
-        return $this->songCount;
-    }
-
-    /**
-     * @return int
-     */
     public function getAlbumId(): int
     {
         return $this->albumId;
