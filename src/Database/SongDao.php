@@ -54,6 +54,12 @@ class SongDao
         $query = $this->db->getPdo()->prepare($sql);
         $query->execute($value);
         $songs = $query->fetchAll();
-        return $songs;
+
+        $arr = [];
+        foreach ($songs as $song)
+        {
+            $arr[] = $song['song_name'];
+        }
+        return $arr;
     }
 }
