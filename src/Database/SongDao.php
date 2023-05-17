@@ -2,8 +2,8 @@
 
 namespace Musicplayer\Database;
 
-use Musicplayer\Entities\Album;
 use Musicplayer\Entities\Song;
+use Musicplayer\Services\SongServices;
 
 class SongDao
 {
@@ -54,6 +54,10 @@ class SongDao
         $query = $this->db->getPdo()->prepare($sql);
         $query->execute($value);
         $songs = $query->fetchAll();
-        return $songs;
+
+        $songServices = new SongServices();
+        $output = $songServices->convertArrayOfArraysToArrayOfSongStrings($songs);
+
+        return $output;
     }
 }
