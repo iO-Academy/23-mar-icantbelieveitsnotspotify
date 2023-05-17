@@ -60,12 +60,16 @@ class AlbumDao
 
     public function fetchTopFiveAlbums(): array
     {
-        $sql= 'SELECT `album_name`,`artist_id`,`album_play_count` '
-           . 'FROM `albums` '
-           . 'ORDER BY `album_play_count` DESC'
-           . 'LIMIT 5';
+        $sql = 'SELECT `albums`.`id`,`albums`.`artist_id`,`artists`.`artist_name`, `albums`.`album_name`, `albums`.`artwork_url` '
+            . 'FROM `albums` '
+            . 'INNER JOIN `artists` '
+            . 'ON `albums`.`artist_id` = `artists`.`id` '
+            . 'WHERE `album_play_count` > 0 '
+            . 'ORDER BY `album_play_count` DESC '
+            . 'LIMIT 5';
 
         $query = $this->db->getPdo()->prepare($sql);
+        $query->execute();
         $albums = $query->fetchAll();
 
         return $albums;
