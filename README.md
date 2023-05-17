@@ -1,3 +1,24 @@
+# Set-up instructions
+
+## Front-end set-up:
+* Go to github.com/iO-Academy
+* Find the repository "music-player-fe" and clone it to your local device
+* Navigate into the "music-player-fe" directory in the terminal
+* Run "npm install", "npm start" commands in the terminal to get the front-end app running on http://localhost:3000
+
+
+## Back-end set-up:
+* Clone the repository "23-mar-icantbelieveitsnotspotify" into your local device (also on github.com/iO-Academy).
+* Create an SQL database and name it "musciplayer"
+* In the "db" folder open "music.sql" and run all SQL commands to populate the database
+* Navigate into the "23-mar-icantbelieveitsnotspotify" directory in the terminal
+* Run "composer install" command
+
+## Testing the product:
+* To test the different stories make sure you are in that story branch in both "music-player-fe" and "23-mar-icantbelieveitsnotspotify" directories (story 2 branch named "story-2", story 3 branch named "story-3", etc.)
+* Clear "musicplayer" database and re-run SQL commands if data is not displaying front-end
+
+
 # music-player-api-template
 
 ## API documentation
