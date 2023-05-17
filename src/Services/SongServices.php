@@ -1,7 +1,6 @@
 <?php
 
 namespace Musicplayer\Services;
-use Musicplayer\Entities\Album;
 use Musicplayer\Entities\Song;
 
 class SongServices
