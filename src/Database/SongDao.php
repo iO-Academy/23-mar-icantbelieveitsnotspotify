@@ -165,7 +165,6 @@ class SongDao
         $query = $this->db->getPdo()->prepare($sql);
         $query->execute($value);
         $searchResults = $query->fetchAll();
-
         return $searchResults;
     }
 }

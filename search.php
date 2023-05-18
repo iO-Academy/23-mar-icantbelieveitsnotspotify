@@ -14,9 +14,12 @@ try {
     http_response_code(200);
 
     if ($searchQuery === null) {
-        $searchResults = []; // Handle the case where $searchQuery is null
+        $searchResults = [];
     } else {
         $searchResults = $songDao->getSearchResults($searchQuery);
+    }
+    foreach ($searchResults as &$song) {
+        $song['is_fav'] = (bool)$song['is_fav'];
     }
 
     $data = json_encode($searchResults);
@@ -24,5 +27,6 @@ try {
     http_response_code(500);
     $data = json_encode(["message" => "Unexpected error"]);
 }
+
 
 echo $data;
