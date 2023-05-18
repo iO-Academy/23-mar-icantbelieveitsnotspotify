@@ -27,10 +27,8 @@ class ArtistServices
         $songDao = new SongDao();
         $songServices = new SongServices();
 
-        // Get artist Id from 'name' (error response to think about in future)
         $artistId = $artistDao->fetchArtistIdFromArtistName($artistName);
-        
-        $albumArray = $albumDao->fetchAllAlbumsFromArtistId($artistId['id']);
+        $albumArray = $albumDao->fetchAllAlbumsFromArtistId($artistId);
         $albums = $albumServices->convertArrayOfArraysToArrayOfAlbums($albumArray);
 
         foreach ($albums as $album) {
