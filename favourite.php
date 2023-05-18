@@ -5,9 +5,7 @@ require "vendor/autoload.php";
 use Musicplayer\Database\SongDao;
 
 header("Access-Control-Allow-Origin: http://localhost:3000");
-
 header("Access-Control-Allow-Headers: Content-Type");
-
 header('Content-Type: application/json; charset=utf-8');
 
 $data = json_decode(file_get_contents('php://input'), true);
@@ -40,4 +38,5 @@ try {
     http_response_code(500);
     $data = json_encode(["message" => "Unexpected error", "data" => []]);
 }
+
 echo $data;

@@ -17,4 +17,5 @@ try {
     http_response_code(500);
     $data = json_encode(["message" => "Unexpected error", "data" => []]);
 }
+
 echo $data;

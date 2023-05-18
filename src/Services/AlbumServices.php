@@ -1,11 +1,11 @@
 <?php
 
 namespace Musicplayer\Services;
+
 use Musicplayer\Database\ArtistDao;
 use Musicplayer\Entities\Album;
 use Musicplayer\Database\AlbumDao;
 use Musicplayer\Database\SongDao;
-use Musicplayer\Entities\Artist;
 
 class AlbumServices
 {

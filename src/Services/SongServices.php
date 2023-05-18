@@ -39,15 +39,16 @@ class SongServices
 
         foreach ($recentSongs as $song) {
 
-                $current = new Song(
-                    $song['id'],
-                    $song['song_name'],
-                    $song['length'],
-                    $song['play_count'],
-                    $song['album_id'],
-                    $song['is_fav'],
-                    ($song['last_play_timestamp'] ?: '')
-                );
+            $current = new Song(
+                $song['id'],
+                $song['song_name'],
+                $song['length'],
+                $song['play_count'],
+                $song['album_id'],
+                $song['is_fav'],
+                ($song['last_play_timestamp'] ?: '')
+            );
+
 
             $album = $albumDao->fetchAlbumFromAlbumId($current->getAlbumId());
             $artist = $artistDao->createArtistFromArtistId($album->getArtistId());

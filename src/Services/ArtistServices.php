@@ -1,8 +1,8 @@
 <?php
 
 namespace Musicplayer\Services;
+
 use Musicplayer\Entities\Artist;
-use Musicplayer\Entities\Album;
 use Musicplayer\Database\ArtistDao;
 use Musicplayer\Database\AlbumDao;
 use Musicplayer\Database\SongDao;
@@ -19,16 +19,13 @@ class ArtistServices
         return $artists;
     }
 
-    public function formatArtistJSONResponse($artistName): array
+    public function formatArtistJSONResponse(string $artistName): array
     {
         $artistDao = new ArtistDao();
         $albumDao = new AlbumDao();
         $albumServices = new AlbumServices();
         $songDao = new SongDao();
         $songServices = new SongServices();
-
-
-        // Get artist Id from 'name' (error response to think about in future)
 
         $artistId = $artistDao->fetchArtistIdFromArtistName($artistName);
         $albumArray = $albumDao->fetchAllAlbumsFromArtistId($artistId);
