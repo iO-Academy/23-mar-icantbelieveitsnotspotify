@@ -16,7 +16,7 @@ class SongDao
 
     public function fetchAllSongsFromAlbumId(int $albumId): array
     {
-        $sql = 'SELECT `id`, `song_name`, `length`, `play_count`, `album_id` '
+        $sql = 'SELECT `id`, `song_name`, `length`, `album_id`, `play_count`, `is_fav` '
             . 'FROM `songs`'
             . 'WHERE `album_id` = :id; ';
 
@@ -28,9 +28,9 @@ class SongDao
         return $songs;
     }
 
-    public function fetchSongFromNameAndArtist(string $name , string $artist): Song
+    public function fetchSongFromNameAndArtist(string $name, string $artist): Song
     {
-        $sql = 'SELECT `songs`.`id`, `song_name`, `length`, `play_count`, `album_id` '
+        $sql = 'SELECT `songs`.`id`, `song_name`, `length`, `album_id`, `play_count`, `is_fav` '
             . 'FROM `songs`'
             . 'INNER JOIN `albums`'
             . 'ON `songs`.`album_id` = `albums`.`id` '
@@ -49,38 +49,38 @@ class SongDao
             throw new \Exception('Unknown song');
         }
 
-        return new Song($song['id'], $song['song_name'], $song['length'], $song['play_count'], $song['album_id']);
+        return new Song($song['id'], $song['song_name'], $song['length'], $song['play_count'], $song['album_id'], $song['is_fav']);
     }
 
     public function incrementSongPlayedCount(int $id): bool
     {
         $sql = 'UPDATE `songs` '
-            .'SET `play_count` = `play_count` + 1 '
-            .'WHERE `id` = :id;';
+            . 'SET `play_count` = `play_count` + 1 '
+            . 'WHERE `id` = :id;';
         $value = [':id' => $id];
 
-        $stmt = $this->db->getPdo()->prepare($sql);
+        $query = $this->db->getPdo()->prepare($sql);
 
-        $success = $stmt->execute($value);
+        $success = $query->execute($value);
         return $success;
     }
 
     public function incrementAlbumPlayedCount(int $id): bool
     {
         $sql = 'UPDATE `albums` '
-            .'SET `album_play_count` = `album_play_count` + 1 '
-            .'WHERE `id` = :id;';
+            . 'SET `album_play_count` = `album_play_count` + 1 '
+            . 'WHERE `id` = :id;';
         $value = [':id' => $id];
 
-        $stmt = $this->db->getPdo()->prepare($sql);
+        $query = $this->db->getPdo()->prepare($sql);
 
-        $success = $stmt->execute($value);
+        $success = $query->execute($value);
         return $success;
     }
 
     public function fetchAllSongsFromAlbumIdReturnArrayOfStrings(int $albumId): array
     {
-        $sql = 'SELECT `id`, `song_name`, `length`, `play_count`, `album_id` '
+        $sql = 'SELECT `id`, `song_name`, `length`, `play_count`, `album_id`, `is_fav` '
             . 'FROM `songs`'
             . 'WHERE `album_id` = :id; ';
 
@@ -99,8 +99,8 @@ class SongDao
     public function addLastPlayedTimestamp(int $id, string $timestamp): bool
     {
         $sql = 'UPDATE `songs` '
-            .'SET `last_play_timestamp` = :timestamp '
-            .'WHERE `id` = :id;';
+            . 'SET `last_play_timestamp` = :timestamp '
+            . 'WHERE `id` = :id;';
         $value = [':id' => $id, ':timestamp' => $timestamp];
 
         $query = $this->db->getPdo()->prepare($sql);
@@ -111,7 +111,7 @@ class SongDao
 
     public function getRecentPlayedSongArray(): array
     {
-        $sql = 'SELECT `id`, `song_name`, `length`, `play_count`, `album_id`, `last_play_timestamp` '
+        $sql = 'SELECT `id`, `song_name`, `length`, `play_count`, `album_id`, `is_fav`, `last_play_timestamp` '
             . 'FROM `songs` '
             . 'WHERE `last_play_timestamp` IS NOT NULL '
             . 'ORDER BY `last_play_timestamp` DESC '
@@ -122,5 +122,19 @@ class SongDao
         $recentSongs = $query->fetchAll();
 
         return $recentSongs;
+    }
+
+    public function setIsFavSong(int $id, bool $isFav): bool
+    {
+        $sql = 'UPDATE `songs` '
+            . 'SET `is_fav` = :isFav '
+            . 'WHERE `id` = :id; ';
+
+        $value = [':id' => $id, ':isFav' => (int)$isFav];
+
+        $query = $this->db->getPdo()->prepare($sql);
+
+        $successAddedFav = $query->execute($value);
+        return $successAddedFav;
     }
 }
