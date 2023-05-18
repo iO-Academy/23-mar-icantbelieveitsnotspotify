@@ -7,17 +7,21 @@ class Song
     private int $songId;
     private string $songName;
     private float $length;
-    private int $albumId;
     private int $playCount;
+    private int $albumId;
+    private bool $isFav;
     private string $lastPlayTimestamp;
 
-    public function __construct($songId, $songName, $length, $playCount, $albumId, $lastPlayTimestamp = '')
+
+    public function __construct($songId, $songName, $length, $playCount, $albumId, $isFav, $lastPlayTimestamp = '')
+
     {
         $this->songId = $songId;
         $this->songName = $songName;
         $this->length = $length;
         $this->playCount= $playCount;
         $this->albumId = $albumId;
+        $this->isFav = $isFav;
         $this->lastPlayTimestamp = $lastPlayTimestamp;
     }
 
@@ -48,17 +52,33 @@ class Song
     /**
      * @return int
      */
+    public function getAlbumId(): int
+    {
+        return $this->albumId;
+    }
+
+    /**
+     * @return int
+     */
     public function getPlayCount(): int
     {
         return $this->playCount;
     }
 
     /**
-     * @return int
+     * @return bool
      */
-    public function getAlbumId(): int
+    public function getIsFav(): bool
     {
-        return $this->albumId;
+        return $this->isFav;
+    }
+
+    /**
+     * @param bool $isFav
+     */
+    public function setIsFav(bool $isFav): void
+    {
+        $this->isFav = $isFav;
     }
 
     /**

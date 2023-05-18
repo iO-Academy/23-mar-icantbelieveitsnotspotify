@@ -27,6 +27,9 @@ class ArtistServices
         $songDao = new SongDao();
         $songServices = new SongServices();
 
+
+        // Get artist Id from 'name' (error response to think about in future)
+
         $artistId = $artistDao->fetchArtistIdFromArtistName($artistName);
         $albumArray = $albumDao->fetchAllAlbumsFromArtistId($artistId);
         $albums = $albumServices->convertArrayOfArraysToArrayOfAlbums($albumArray);
@@ -35,7 +38,7 @@ class ArtistServices
             $songArray = $songDao->fetchAllSongsFromAlbumId($album->getAlbumId());
             $songs = $songServices->convertArrayOfArraysToArrayOfSongs($songArray);
             foreach ($songs as $song) {
-                $songsOutput[] = ['name' => $song->getSongName(), 'length' => $song->getLength(), 'play_count' => $song->getPlayCount()];
+                $songsOutput[] = ['name' => $song->getSongName(), 'length' => $song->getLength(), 'play_count' => $song->getPlayCount(), 'is_fav' => $song->getIsFav()];
             }
             $albumsOutput[] = ['name' => $album->getAlbumName(), 'songs' => $songsOutput, 'artwork_url' => $album->getArtworkUrl()];
             $songsOutput = [];

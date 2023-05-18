@@ -16,7 +16,7 @@ class SongDao
 
     public function fetchSongFromSongId(int $songId): Song
     {
-        $sql = 'SELECT `id`, `song_name`, `length`, `album_id`, `play_count` '
+        $sql = 'SELECT `id`, `song_name`, `length`, `play_count`, `album_id`, `is_fav` '
             . 'FROM `songs`'
             . 'WHERE `id` = :id; ';
 
@@ -26,12 +26,12 @@ class SongDao
         $query->execute($value);
         $song = $query->fetch();
 
-        return new Song($song['id'], $song['song_name'], $song['length'], $song['album_id'], $song['play_count']);
+        return new Song($song['id'], $song['song_name'], $song['length'], $song['play_count'], $song['album_id'], $song['is_fav']);
     }
 
     public function fetchAllSongsFromAlbumId(int $albumId): array
     {
-        $sql = 'SELECT `id`, `song_name`, `length`, `play_count`, `album_id` '
+        $sql = 'SELECT `id`, `song_name`, `length`, `album_id`, `play_count`, `is_fav` '
             . 'FROM `songs`'
             . 'WHERE `album_id` = :id; ';
 
@@ -45,7 +45,7 @@ class SongDao
 
     public function fetchSongFromNameAndArtist(string $name , string $artist): Song
     {
-        $sql = 'SELECT `songs`.`id`, `song_name`, `length`, `play_count`, `album_id` '
+        $sql = 'SELECT `songs`.`id`, `song_name`, `length`, `album_id`, `play_count`, `is_fav` '
             . 'FROM `songs`'
             . 'INNER JOIN `albums`'
             . 'ON `songs`.`album_id` = `albums`.`id` '
@@ -64,7 +64,7 @@ class SongDao
             throw new \Exception('Unknown song');
         }
 
-        return new Song($song['id'], $song['song_name'], $song['length'], $song['play_count'], $song['album_id']);
+        return new Song($song['id'], $song['song_name'], $song['length'], $song['play_count'], $song['album_id'], $song['is_fav']);
     }
 
     public function incrementSongPlayedCount(int $id): bool
@@ -95,7 +95,7 @@ class SongDao
 
     public function fetchAllSongsFromAlbumIdReturnArrayOfStrings(int $albumId): array
     {
-        $sql = 'SELECT `id`, `song_name`, `length`, `play_count`, `album_id` '
+        $sql = 'SELECT `id`, `song_name`, `length`, `play_count`, `album_id`, `is_fav` '
             . 'FROM `songs`'
             . 'WHERE `album_id` = :id; ';
 
@@ -126,7 +126,7 @@ class SongDao
 
     public function getRecentPlayedSongArray(): array
     {
-        $sql = 'SELECT `id`, `song_name`, `length`, `play_count`, `album_id`, `last_play_timestamp` '
+        $sql = 'SELECT `id`, `song_name`, `length`, `play_count`, `album_id`, `is_fav`, `last_play_timestamp` '
             . 'FROM `songs` '
             . 'WHERE `last_play_timestamp` IS NOT NULL '
             . 'ORDER BY `last_play_timestamp` DESC '
@@ -138,4 +138,32 @@ class SongDao
 
         return $recentSongs;
     }
+
+        public function setIsFavSong(int $id, bool $isFav): bool
+    {
+        $sql = 'UPDATE `songs` '
+            . 'SET `is_fav` = :isFav '
+            . 'WHERE `id` = :id; ';
+
+        $value = [':id' => $id, ':isFav' => (int)$isFav];
+
+        $stmt = $this->db->getPdo()->prepare($sql);
+
+        $successAddedFav = $stmt->execute($value);
+        return $successAddedFav;
+    }
+
+    public function getFavSongsArray(): array
+    {
+            $sql = 'SELECT `id`, `song_name`, `length`, `play_count`, `album_id`, `is_fav`, `last_play_timestamp` '
+                . 'FROM `songs` '
+                . 'WHERE `is_fav` IS NOT NULL ';
+
+            $query = $this->db->getPdo()->prepare($sql);
+            $query->execute();
+            $favouriteSongs = $query->fetchAll();
+
+        return $favouriteSongs;
+    }
+
 }
