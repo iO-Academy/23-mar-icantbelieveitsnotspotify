@@ -103,9 +103,9 @@ class SongDao
             .'WHERE `id` = :id;';
         $value = [':id' => $id, ':timestamp' => $timestamp];
 
-        $stmt = $this->db->getPdo()->prepare($sql);
+        $query = $this->db->getPdo()->prepare($sql);
 
-        $success = $stmt->execute($value);
+        $success = $query->execute($value);
         return $success;
     }
 
