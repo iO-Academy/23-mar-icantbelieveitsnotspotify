@@ -2,7 +2,6 @@
 
 namespace Musicplayer\Services;
 
-
 use Musicplayer\Database\AlbumDao;
 use Musicplayer\Database\ArtistDao;
 use Musicplayer\Database\SongDao;
@@ -48,6 +47,7 @@ class SongServices
                     $song['is_fav'],
                     ($song['last_play_timestamp'] ?: '')
                 );
+
             $album = $albumDao->fetchAlbumFromAlbumId($current->getAlbumId());
             $artist = $artistDao->createArtistFromArtistId($album->getArtistId());
 

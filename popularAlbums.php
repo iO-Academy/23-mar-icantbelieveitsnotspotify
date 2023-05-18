@@ -2,16 +2,16 @@
 
 require "vendor/autoload.php";
 
-use Musicplayer\Services\ArtistsServices;
+use Musicplayer\Services\AlbumServices;
 
 header('Access-Control-Allow-Origin: http://localhost:3000');
 header('Content-Type: application/json');
 
-$artistsServices = new ArtistsServices();
+$albumServices = new AlbumServices();
 
 try {
     http_response_code(200);
-    $fetchedData = $artistsServices->formatArtistsJSONResponse();
+    $fetchedData = $albumServices->formatPopularAlbumsJSONResponse();
     $data = json_encode($fetchedData);
 } catch (\Exception $exception) {
     http_response_code(500);
