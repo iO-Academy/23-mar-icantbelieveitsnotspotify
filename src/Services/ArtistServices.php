@@ -18,7 +18,7 @@ class ArtistServices
         return $artists;
     }
 
-    public function formatArtistJSONResponse($artistName): array
+    public function formatArtistJSONResponse(string $artistName): array
     {
         $artistDao = new ArtistDao();
         $albumDao = new AlbumDao();
