@@ -6,7 +6,6 @@ use Musicplayer\Entities\Album;
 use Musicplayer\Database\AlbumDao;
 use Musicplayer\Database\SongDao;
 use Musicplayer\Entities\Artist;
-use Musicplayer\Entities\Artists;
 
 class AlbumServices
 {
