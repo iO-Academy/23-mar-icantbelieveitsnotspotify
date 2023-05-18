@@ -166,4 +166,20 @@ class SongDao
         return $favouriteSongs;
     }
 
+    public function getSearchResults(string $search): array
+    {
+        $sql = 'SELECT `id`, `song_name`, `length`, `play_count`, `album_id`, `is_fav`, `last_play_timestamp` '
+            . 'FROM `songs` '
+            . 'WHERE LOWER(:search) = LOWER(`song_name`) '
+            . 'LIMIT 10 ;';
+
+        $value = [':search' => $search];
+
+        $query = $this->db->getPdo()->prepare($sql);
+        $query->execute($value);
+        $searchResults = $query->fetchAll();
+
+        return $searchResults;
+    }
+
 }

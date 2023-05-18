@@ -1,8 +1,26 @@
 <?php
+require "vendor/autoload.php";
 
-$searchTerm = $_GET['name'];
+use Musicplayer\Services\SongServices;
 
-echo '<pre>';
-var_dump($searchTerm);
-echo '</pre>';
+header('Access-Control-Allow-Origin: http://localhost:3000');
+header('Content-Type: application/json');
 
+$songServices = new SongServices();
+
+try {
+    http_response_code(200);
+    $fetchedData = $songServices->formatArtistJSONResponse($_GET['name']);
+    $data = json_encode($fetchedData);
+}  catch (\PDOException $exception) {
+    http_response_code(500);
+    $data = json_encode(["message" => "Unexpected error"]);
+}
+echo $data;
+
+
+/*
+ * SELECT...
+ * FROM...
+ * WHERE LOWER(:title) = LOWER(`song_name`);
+ */
