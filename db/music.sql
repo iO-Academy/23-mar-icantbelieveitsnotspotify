@@ -134,9 +134,9 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `songs`;
 
 CREATE TABLE `songs` (
-                         `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-                         `song_name` varchar(255) NOT NULL,
-                         `length` float(3,2) NOT NULL,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `song_name` varchar(255) NOT NULL,
+  `length` float(3,2) NOT NULL,
   `album_id` int(11) NOT NULL,
   `play_count` int(11) NOT NULL DEFAULT 0,
   `is_fav` tinyint(1) NOT NULL DEFAULT 0,
