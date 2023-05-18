@@ -11,7 +11,7 @@
 
 ## Back-end set-up:
 * Clone the repository "23-mar-icantbelieveitsnotspotify" into your local device (also on github.com/iO-Academy).
-* Create an SQL database and name it "musciplayer"
+* Create an SQL database and name it "musicplayer"
 * In the "db" folder open "music.sql" and run all SQL commands to populate the database
 * Navigate into the "23-mar-icantbelieveitsnotspotify" directory in the terminal
 * Run "composer install" command
