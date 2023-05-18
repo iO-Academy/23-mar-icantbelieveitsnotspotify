@@ -28,7 +28,7 @@ class SongDao
         return $songs;
     }
 
-    public function fetchSongFromNameAndArtist(string $name , string $artist): Song
+    public function fetchSongFromNameAndArtist(string $name, string $artist): Song
     {
         $sql = 'SELECT `songs`.`id`, `song_name`, `length`, `album_id`, `play_count`, `is_fav` '
             . 'FROM `songs`'
@@ -55,8 +55,8 @@ class SongDao
     public function incrementSongPlayedCount(int $id): bool
     {
         $sql = 'UPDATE `songs` '
-            .'SET `play_count` = `play_count` + 1 '
-            .'WHERE `id` = :id;';
+            . 'SET `play_count` = `play_count` + 1 '
+            . 'WHERE `id` = :id;';
         $value = [':id' => $id];
 
         $query = $this->db->getPdo()->prepare($sql);
@@ -68,8 +68,8 @@ class SongDao
     public function incrementAlbumPlayedCount(int $id): bool
     {
         $sql = 'UPDATE `albums` '
-            .'SET `album_play_count` = `album_play_count` + 1 '
-            .'WHERE `id` = :id;';
+            . 'SET `album_play_count` = `album_play_count` + 1 '
+            . 'WHERE `id` = :id;';
         $value = [':id' => $id];
 
         $query = $this->db->getPdo()->prepare($sql);
@@ -99,8 +99,8 @@ class SongDao
     public function addLastPlayedTimestamp(int $id, string $timestamp): bool
     {
         $sql = 'UPDATE `songs` '
-            .'SET `last_play_timestamp` = :timestamp '
-            .'WHERE `id` = :id;';
+            . 'SET `last_play_timestamp` = :timestamp '
+            . 'WHERE `id` = :id;';
         $value = [':id' => $id, ':timestamp' => $timestamp];
 
         $query = $this->db->getPdo()->prepare($sql);
@@ -124,7 +124,7 @@ class SongDao
         return $recentSongs;
     }
 
-        public function setIsFavSong(int $id, bool $isFav): bool
+    public function setIsFavSong(int $id, bool $isFav): bool
     {
         $sql = 'UPDATE `songs` '
             . 'SET `is_fav` = :isFav '
