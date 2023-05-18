@@ -1,6 +1,7 @@
 <?php
 
 namespace Musicplayer\Services;
+
 use Musicplayer\Entities\Artist;
 use Musicplayer\Database\ArtistDao;
 use Musicplayer\Database\AlbumDao;

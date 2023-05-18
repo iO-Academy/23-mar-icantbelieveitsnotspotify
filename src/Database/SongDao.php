@@ -59,9 +59,9 @@ class SongDao
             .'WHERE `id` = :id;';
         $value = [':id' => $id];
 
-        $stmt = $this->db->getPdo()->prepare($sql);
+        $query = $this->db->getPdo()->prepare($sql);
 
-        $success = $stmt->execute($value);
+        $success = $query->execute($value);
         return $success;
     }
 
@@ -72,9 +72,9 @@ class SongDao
             .'WHERE `id` = :id;';
         $value = [':id' => $id];
 
-        $stmt = $this->db->getPdo()->prepare($sql);
+        $query = $this->db->getPdo()->prepare($sql);
 
-        $success = $stmt->execute($value);
+        $success = $query->execute($value);
         return $success;
     }
 
@@ -132,9 +132,9 @@ class SongDao
 
         $value = [':id' => $id, ':isFav' => (int)$isFav];
 
-        $stmt = $this->db->getPdo()->prepare($sql);
+        $query = $this->db->getPdo()->prepare($sql);
 
-        $successAddedFav = $stmt->execute($value);
+        $successAddedFav = $query->execute($value);
         return $successAddedFav;
     }
 }
