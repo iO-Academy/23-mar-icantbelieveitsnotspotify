@@ -137,7 +137,6 @@ class SongDao
         $successAddedFav = $query->execute($value);
         return $successAddedFav;
     }
-<<<<<<< HEAD
 
     public function getFavSongsArray(): array
     {
@@ -167,7 +166,4 @@ class SongDao
 
         return $searchResults;
     }
-
-=======
->>>>>>> origin/story-7
 }
