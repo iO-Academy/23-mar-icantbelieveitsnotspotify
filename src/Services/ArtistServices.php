@@ -1,8 +1,8 @@
 <?php
 
 namespace Musicplayer\Services;
+
 use Musicplayer\Entities\Artist;
-use Musicplayer\Entities\Album;
 use Musicplayer\Database\ArtistDao;
 use Musicplayer\Database\AlbumDao;
 use Musicplayer\Database\SongDao;
@@ -19,7 +19,7 @@ class ArtistServices
         return $artists;
     }
 
-    public function formatArtistJSONResponse($artistName): array
+    public function formatArtistJSONResponse(string $artistName): array
     {
         $artistDao = new ArtistDao();
         $albumDao = new AlbumDao();
@@ -35,7 +35,7 @@ class ArtistServices
             $songArray = $songDao->fetchAllSongsFromAlbumId($album->getAlbumId());
             $songs = $songServices->convertArrayOfArraysToArrayOfSongs($songArray);
             foreach ($songs as $song) {
-                $songsOutput[] = ['name' => $song->getSongName(), 'length' => $song->getLength(), 'play_count' => $song->getPlayCount()];
+                $songsOutput[] = ['name' => $song->getSongName(), 'length' => $song->getLength(), 'play_count' => $song->getPlayCount(), 'is_fav' => $song->getIsFav()];
             }
             $albumsOutput[] = ['name' => $album->getAlbumName(), 'songs' => $songsOutput, 'artwork_url' => $album->getArtworkUrl()];
             $songsOutput = [];

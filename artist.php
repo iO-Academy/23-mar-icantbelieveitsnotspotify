@@ -20,4 +20,5 @@ try {
     http_response_code(400);
     $data = json_encode(["message" => "Unknown artist name"]);
 }
+
 echo $data;
