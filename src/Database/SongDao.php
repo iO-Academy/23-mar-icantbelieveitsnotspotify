@@ -14,21 +14,6 @@ class SongDao
         $this->db = new Database();
     }
 
-    public function fetchSongFromSongId(int $songId): Song
-    {
-        $sql = 'SELECT `id`, `song_name`, `length`, `album_id`, `play_count` '
-            . 'FROM `songs`'
-            . 'WHERE `id` = :id; ';
-
-        $value = [':id' => $songId];
-
-        $query = $this->db->getPdo()->prepare($sql);
-        $query->execute($value);
-        $song = $query->fetch();
-
-        return new Song($song['id'], $song['song_name'], $song['length'], $song['album_id'], $song['play_count']);
-    }
-
     public function fetchAllSongsFromAlbumId(int $albumId): array
     {
         $sql = 'SELECT `id`, `song_name`, `length`, `play_count`, `album_id` '
@@ -80,6 +65,19 @@ class SongDao
         return $success;
     }
 
+    public function incrementAlbumPlayedCount(int $id): bool
+    {
+        $sql = 'UPDATE `albums` '
+            .'SET `album_play_count` = `album_play_count` + 1 '
+            .'WHERE `id` = :id;';
+        $value = [':id' => $id];
+
+        $stmt = $this->db->getPdo()->prepare($sql);
+
+        $success = $stmt->execute($value);
+        return $success;
+    }
+
     public function fetchAllSongsFromAlbumIdReturnArrayOfStrings(int $albumId): array
     {
         $sql = 'SELECT `id`, `song_name`, `length`, `play_count`, `album_id` '
@@ -105,9 +103,9 @@ class SongDao
             .'WHERE `id` = :id;';
         $value = [':id' => $id, ':timestamp' => $timestamp];
 
-        $stmt = $this->db->getPdo()->prepare($sql);
+        $query = $this->db->getPdo()->prepare($sql);
 
-        $success = $stmt->execute($value);
+        $success = $query->execute($value);
         return $success;
     }
 
