@@ -1,26 +1,28 @@
 <?php
 require "vendor/autoload.php";
 
-use Musicplayer\Services\SongServices;
+use Musicplayer\Database\SongDao;
 
 header('Access-Control-Allow-Origin: http://localhost:3000');
 header('Content-Type: application/json');
 
-$songServices = new SongServices();
+$songDao = new SongDao();
+
+$searchQuery = $_GET['name'];
 
 try {
     http_response_code(200);
-    $fetchedData = $songServices->formatArtistJSONResponse($_GET['name']);
-    $data = json_encode($fetchedData);
-}  catch (\PDOException $exception) {
+
+    if ($searchQuery === null) {
+        $searchResults = []; // Handle the case where $searchQuery is null
+    } else {
+        $searchResults = $songDao->getSearchResults($searchQuery);
+    }
+
+    $data = json_encode($searchResults);
+} catch (\PDOException $exception) {
     http_response_code(500);
     $data = json_encode(["message" => "Unexpected error"]);
 }
+
 echo $data;
-
-
-/*
- * SELECT...
- * FROM...
- * WHERE LOWER(:title) = LOWER(`song_name`);
- */

@@ -153,12 +153,14 @@ class SongDao
 
     public function getSearchResults(string $search): array
     {
-        $sql = 'SELECT `id`, `song_name`, `length`, `play_count`, `album_id`, `is_fav`, `last_play_timestamp` '
-            . 'FROM `songs` '
-            . 'WHERE LOWER(:search) = LOWER(`song_name`) '
-            . 'LIMIT 10 ;';
+        $sql = 'SELECT `songs`.`song_name`, `artists`.`artist_name`, `songs`.`length`, `albums`.`artwork_url`, `songs`.`play_count`, `songs`.`is_fav` '
+                . 'FROM `songs` '
+                . 'INNER JOIN `albums` ON `songs`.`album_id` = `albums`.`id` '
+                . 'INNER JOIN `artists` ON `albums`.`artist_id` = `artists`.`id` '
+                . 'WHERE LOWER(`songs`.`song_name`) LIKE LOWER (:search) '
+                . 'LIMIT 10; ';
 
-        $value = [':search' => $search];
+        $value = [':search' => '%' . $search . '%'];
 
         $query = $this->db->getPdo()->prepare($sql);
         $query->execute($value);
