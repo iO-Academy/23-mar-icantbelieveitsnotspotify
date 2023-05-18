@@ -2,7 +2,6 @@
 
 namespace Musicplayer\Services;
 use Musicplayer\Entities\Artist;
-use Musicplayer\Entities\Album;
 use Musicplayer\Database\ArtistDao;
 use Musicplayer\Database\AlbumDao;
 use Musicplayer\Database\SongDao;
