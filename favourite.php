@@ -1,5 +1,6 @@
 <?php
-require 'vendor/autoload.php';
+
+require "vendor/autoload.php";
 
 use Musicplayer\Database\SongDao;
 
@@ -25,19 +26,18 @@ try {
     exit;
 }
 
+$isFav = !$song->getIsFav();
+
 try {
-    $success = $songDao->incrementSongPlayedCount($song->getSongId());
-    $song->setLastPlayTimestamp(date('Y-m-d H:i:s'));
-    $songDao->addLastPlayedTimestamp($song->getSongId(), $song->getLastPlayTimestamp());
-    if (!$success) {
+    $successAddedFav = $songDao->setIsFavSong($song->getSongId(), $isFav);
+    if (!$successAddedFav) {
         throw new Exception();
     } else {
-        http_response_code(201);
-        $data = json_encode(["message" => "Successfully recorded play."], true);
+        http_response_code(202);
+        $data = json_encode(["message" => "Successfully favourited song."], true);
     }
 } catch (Exception $exception) {
     http_response_code(500);
     $data = json_encode(["message" => "Unexpected error", "data" => []]);
 }
-
 echo $data;

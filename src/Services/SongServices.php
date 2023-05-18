@@ -14,7 +14,7 @@ class SongServices
     {
         $songs = [];
         foreach ($rows as $row) {
-            $song = new Song($row['id'], $row['song_name'], $row['length'], $row['play_count'], $row['album_id']);
+            $song = new Song($row['id'], $row['song_name'], $row['length'], $row['play_count'], $row['album_id'], $row['is_fav']);
             $songs[] = $song;
         }
         return $songs;
@@ -45,6 +45,7 @@ class SongServices
                     $song['length'],
                     $song['play_count'],
                     $song['album_id'],
+                    $song['is_fav'],
                     ($song['last_play_timestamp'] ?: '')
                 );
             $album = $albumDao->fetchAlbumFromAlbumId($current->getAlbumId());
@@ -54,7 +55,8 @@ class SongServices
                 'name' => $current->getSongName(),
                 'artist' => $artist->getArtistName(),
                 'length' => $current->getLength(),
-                'artwork_url' => $album->getArtworkUrl()
+                'artwork_url' => $album->getArtworkUrl(),
+                'is_fav' => $current->getIsFav()
             ];
         }
         return $recentSongOutput;
