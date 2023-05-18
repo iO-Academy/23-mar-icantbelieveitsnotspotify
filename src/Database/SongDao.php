@@ -153,7 +153,7 @@ class SongDao
 
     public function getSearchResults(string $search): array
     {
-        $sql = 'SELECT `songs`.`song_name` as `name`, `artists`.`artist_name`, `songs`.`length`, `albums`.`artwork_url`, `songs`.`play_count`, `songs`.`is_fav` '
+        $sql = 'SELECT `songs`.`song_name` as `name`, `artists`.`artist_name` as `artist`, `songs`.`length`, `albums`.`artwork_url`, `songs`.`play_count`, `songs`.`is_fav` '
                 . 'FROM `songs` '
                 . 'INNER JOIN `albums` ON `songs`.`album_id` = `albums`.`id` '
                 . 'INNER JOIN `artists` ON `albums`.`artist_id` = `artists`.`id` '

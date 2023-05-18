@@ -63,4 +63,18 @@ class SongServices
         }
         return $recentSongOutput;
     }
+
+    public function formatSearchResultsJSONResponse(array $songs) : array
+    {
+        for ($i = 0; $i < sizeof($songs); $i++) {
+            $songs[$i]['length'] = ltrim(date('i:s', round((floor($songs[$i]['length']) * 60) +
+                ($songs[$i]['length'] - floor($songs[$i]['length'])) * 100)), '0');
+            if ($songs[$i]['is_fav'] === 0) {
+                $songs[$i]['is_fav'] = false;
+            } else {
+                $songs[$i]['is_fav'] = true;
+            }
+        }
+        return $songs;
+    }
 }
