@@ -1,7 +1,6 @@
 <?php
 
 namespace Musicplayer\Database;
-require 'vendor/autoload.php';
 use Musicplayer\Entities\Album;
 
 class AlbumDao
