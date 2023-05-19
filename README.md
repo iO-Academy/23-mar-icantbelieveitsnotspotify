@@ -5,13 +5,13 @@
 * Find the repository "music-player-fe" and clone it to your local device
 * Navigate into the "music-player-fe" directory in the terminal
 * Switch to story 1 branch by running "git checkout story-1" in the terminal
-* Run "npm install", "npm start" commands in the terminal to get the front-end app running on http://localhost:3000
 * Find the "src" file and go into "settings.js"
 * Edit line 1 of the file so that it says: `const BASE_URL = 'http://localhost:1234/23-mar-icantbelieveitsnotspotify/'`
+* Run "npm install", "npm start" commands in the terminal to get the front-end app running on http://localhost:3000
 
 ## Back-end set-up:
 * Clone the repository "23-mar-icantbelieveitsnotspotify" into your local device (also on github.com/iO-Academy).
-* Create an SQL database and name it "musciplayer"
+* Create an SQL database and name it "musicplayer"
 * In the "db" folder open "music.sql" and run all SQL commands to populate the database
 * Navigate into the "23-mar-icantbelieveitsnotspotify" directory in the terminal
 * Run "composer install" command
