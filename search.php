@@ -19,7 +19,7 @@ try {
         $searchResults = []; // Handle the case where $searchQuery is null
     } else {
         $searchResults = $songDao->getSearchResults($searchQuery);
-        $data = $songServices->formatSearchResultsJSONResponse($searchResults);
+        $searchResults = $songServices->formatSearchResultsJSONResponse($searchResults);
     }
 
     $data = json_encode($searchResults);

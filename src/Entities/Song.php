@@ -12,7 +12,7 @@ class Song
     private bool $isFav;
     private string $lastPlayTimestamp;
 
-    public function __construct($songId, $songName, $length, $playCount, $albumId, $isFav, $lastPlayTimestamp = '')
+    public function __construct($songId, $songName, $length, $playCount, $albumId, $isFav = false, $lastPlayTimestamp = '')
 
     {
         $this->songId = $songId;
@@ -45,7 +45,7 @@ class Song
      */
     public function getLength(): string
     {
-        return date('i:s', round((floor($this->length) * 60) + ($this->length - floor($this->length)) * 100));
+        return ltrim(date('i:s', round((floor($this->length) * 60) + ($this->length - floor($this->length)) * 100)), '0');
     }
 
     /**
