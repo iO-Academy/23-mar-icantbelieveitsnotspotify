@@ -38,6 +38,7 @@ class SongServices
         $recentSongOutput = [];
 
         foreach ($recentSongs as $song) {
+
             $current = new Song(
                 $song['id'],
                 $song['song_name'],
@@ -47,6 +48,7 @@ class SongServices
                 $song['is_fav'],
                 ($song['last_play_timestamp'] ?: '')
             );
+
 
             $album = $albumDao->fetchAlbumFromAlbumId($current->getAlbumId());
             $artist = $artistDao->createArtistFromArtistId($album->getArtistId());
@@ -60,5 +62,19 @@ class SongServices
             ];
         }
         return $recentSongOutput;
+    }
+
+    public function formatSearchResultsJSONResponse(array $songs) : array
+    {
+        for ($i = 0; $i < sizeof($songs); $i++) {
+            $songs[$i]['length'] = ltrim(date('i:s', round((floor($songs[$i]['length']) * 60) +
+                ($songs[$i]['length'] - floor($songs[$i]['length'])) * 100)), '0');
+            if ($songs[$i]['is_fav'] === 0) {
+                $songs[$i]['is_fav'] = false;
+            } else {
+                $songs[$i]['is_fav'] = true;
+            }
+        }
+        return $songs;
     }
 }

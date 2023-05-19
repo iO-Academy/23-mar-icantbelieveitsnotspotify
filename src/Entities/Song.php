@@ -13,6 +13,7 @@ class Song
     private string $lastPlayTimestamp;
 
     public function __construct($songId, $songName, $length, $playCount, $albumId, $isFav, $lastPlayTimestamp = '')
+
     {
         $this->songId = $songId;
         $this->songName = $songName;

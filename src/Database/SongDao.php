@@ -137,4 +137,35 @@ class SongDao
         $successAddedFav = $query->execute($value);
         return $successAddedFav;
     }
+
+    public function getFavSongsArray(): array
+    {
+            $sql = 'SELECT `id`, `song_name`, `length`, `play_count`, `album_id`, `is_fav`, `last_play_timestamp` '
+                . 'FROM `songs` '
+                . 'WHERE `is_fav` IS NOT NULL ';
+
+            $query = $this->db->getPdo()->prepare($sql);
+            $query->execute();
+            $favouriteSongs = $query->fetchAll();
+
+        return $favouriteSongs;
+    }
+
+    public function getSearchResults(string $search): array
+    {
+        $sql = 'SELECT `songs`.`song_name` as `name`, `artists`.`artist_name` as `artist`, `songs`.`length`, `albums`.`artwork_url`, `songs`.`play_count`, `songs`.`is_fav` '
+                . 'FROM `songs` '
+                . 'INNER JOIN `albums` ON `songs`.`album_id` = `albums`.`id` '
+                . 'INNER JOIN `artists` ON `albums`.`artist_id` = `artists`.`id` '
+                . 'WHERE LOWER(`songs`.`song_name`) LIKE LOWER (:search) '
+                . 'LIMIT 10; ';
+
+        $value = [':search' => '%' . $search . '%'];
+
+        $query = $this->db->getPdo()->prepare($sql);
+        $query->execute($value);
+        $searchResults = $query->fetchAll();
+
+        return $searchResults;
+    }
 }
