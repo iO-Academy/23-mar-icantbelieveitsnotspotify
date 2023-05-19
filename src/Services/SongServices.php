@@ -64,8 +64,10 @@ class SongServices
         return $recentSongOutput;
     }
 
-    public function formatSearchResultsJSONResponse(array $songs) : array
+    public function formatSearchResultsJSONResponse(string $searchQuery) : array
     {
+        $songDao = new SongDao();
+        $songs = $songDao->getSearchResults($searchQuery);
         for ($i = 0; $i < sizeof($songs); $i++) {
             $songs[$i]['length'] = ltrim(date('i:s', round((floor($songs[$i]['length']) * 60) +
                 ($songs[$i]['length'] - floor($songs[$i]['length'])) * 100)), '0');
